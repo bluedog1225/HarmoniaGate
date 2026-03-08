@@ -16,14 +16,17 @@
             display: flex; justify-content: center; align-items: flex-start; min-height: 100vh;
         }
 
-        /* 2. 인트로 오버레이 */
+        /* 2. 인트로 오버레이 (정중앙 정렬 수정) */
         #intro-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #100e0c; z-index: 1000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            display: flex; flex-direction: column; 
+            justify-content: center; /* 세로 정중앙 */
+            align-items: center;     /* 가로 정중앙 */
             transition: all 1.5s cubic-bezier(0.65, 0, 0.35, 1); cursor: pointer;
         }
         #intro-overlay.fade-out { opacity: 0; visibility: hidden; transform: scale(1.1); }
+        .seal-button { text-align: center; }
         .seal-button img { width: 120px; filter: sepia(1) brightness(0.8); animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.05); opacity: 1; } }
 
@@ -43,7 +46,7 @@
         .sub-title { font-size: 11px; letter-spacing: 10px; color: #8e7a56; font-weight: bold; text-transform: uppercase; }
 
         nav { display: flex; justify-content: center; gap: 40px; margin-bottom: 60px; }
-        nav a { color: #a18e6a; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        nav a { color: #a18e6a; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.3s; padding-bottom: 5px; }
         nav a:hover, nav a.active { color: #332a1b; border-bottom: 2px solid #8e5a31; }
 
         /* 5. 타임라인 (HISTORY) */
@@ -60,7 +63,7 @@
         .glossary-term { color: #8e5a31; font-weight: bold; font-size: 16px; display: block; margin-bottom: 5px; }
         .glossary-desc { font-size: 14px; line-height: 1.6; }
 
-        /* 7. 기타 요소 */
+        /* 7. 공통 요소 */
         section { display: none; animation: fadeIn 0.8s forwards; }
         section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -73,7 +76,7 @@
     <div id="intro-overlay">
         <div class="seal-button">
             <img src="https://cdn-icons-png.flaticon.com/512/3522/3522192.png" alt="Seal">
-            <p style="color:#8e7a56; letter-spacing:8px; margin-top:20px;">CLICK TO UNSEAL</p>
+            <p style="color:#8e7a56; letter-spacing:8px; margin-top:20px; font-weight:bold;">CLICK TO UNSEAL</p>
         </div>
     </div>
 
@@ -85,18 +88,18 @@
 
         <nav>
             <a onclick="showSection('home')" id="nav-home">HOME</a>
-            <a onclick="showSection('history')" id="nav-history" class="active">HISTORY</a>
+            <a onclick="showSection('history')" id="nav-history">HISTORY</a>
             <a onclick="showSection('glossary')" id="nav-glossary">GLOSSARY</a>
             <a onclick="showSection('faction')" id="nav-faction">FACTION</a>
         </nav>
 
         <main>
             <section id="home">
-                <p style="text-align:center;">하르모니아 아카데미 <span class="highlight">비밀 서고</span>에 오신 것을 환영합니다.</p>
-                <p style="text-align:center;">이곳은 2024년 대침식 사건 이후, 인류와 이계인이 공존하며 쌓아온 위대한 역사가 기록된 장소입니다.</p>
+                <p style="text-align:center; font-size: 18px; margin-bottom: 30px;">하르모니아 아카데미 <span class="highlight">비밀 서고</span>에 오신 것을 환영합니다.</p>
+                <p style="text-align:center; line-height: 2.2;">이곳은 2024년 대침식 사건 이후, 인류와 이계인이 공존하며 쌓아온 위대한 역사가 기록된 장소입니다. <br> 모든 학생과 교사 여러분은 이곳의 기록을 통해 차원의 경계를 이해하고 수호하는 법을 배우게 될 것입니다.</p>
             </section>
 
-            <section id="history" class="active">
+            <section id="history">
                 <div class="timeline">
                     <div class="event">
                         <span class="event-date">2024. 12. 24</span>
@@ -106,17 +109,17 @@
                     <div class="event">
                         <span class="event-date">2024. 12. 31</span>
                         <span class="event-title">최초의 게이트 브레이크 - 이계화 발생</span>
-                        <p class="event-content">과부하된 게이트가 폭주하며 사천 지방을 침식 및 <span class="highlight">이계화(異界化)</span> 시킴. 피난 온 이계인들을 향한 중국의 공격으로 1차 침식 대전 발발.</p>
+                        <p class="event-content">과부하된 게이트가 폭주하며 사천 지방을 침식 및 이계화(異界化) 시킴. 피난 온 이계인들을 향한 공격으로 1차 침식 대전 발발.</p>
                     </div>
                     <div class="event">
                         <span class="event-date">2025. 01. 04</span>
                         <span class="event-title">1차 침식 대전 - 중국의 몰락</span>
-                        <p class="event-content">이계인들의 반격으로 현대 무기 무력화. 베이징에 투하된 거대 운석으로 인해 중국 몰락의 길을 걸음.</p>
+                        <p class="event-content">이계인들의 반격으로 현대 무기 무력화. 베이징에 투하된 거대 운석으로 인해 중국은 몰락의 길을 걸음.</p>
                     </div>
                     <div class="event">
                         <span class="event-date">2025. 01. 11</span>
                         <span class="event-title">성좌와 시스템, 그리고 헌터의 등장</span>
-                        <p class="event-content"><span class="highlight">[성좌]</span>의 선택을 받은 민간인들이 <span class="highlight">[시스템]</span>을 통해 초월적인 힘을 얻으며 헌터로서 참전.</p>
+                        <p class="event-content">[성좌]의 선택을 받은 민간인들이 [시스템]을 통해 초월적인 힘을 얻으며 헌터로서 참전.</p>
                     </div>
                     <div class="event">
                         <span class="event-date">2025. 01. 24</span>
@@ -126,7 +129,7 @@
                     <div class="event">
                         <span class="event-date">2025. 01. 25</span>
                         <span class="event-title">1차 침식 대전 휴전 - '하르모니아 연맹' 결성</span>
-                        <p class="event-content">공멸을 막기 위해 양 진영이 휴전을 선언하고 일시 동맹인 <span class="highlight">하르모니아 연맹</span>을 탄생시킴.</p>
+                        <p class="event-content">공멸을 막기 위해 양 진영이 휴전을 선언하고 일시 동맹인 하르모니아 연맹을 탄생시킴.</p>
                     </div>
                     <div class="event">
                         <span class="event-date">2025. 01. 27</span>
@@ -144,24 +147,24 @@
                         <p class="event-content">미래의 재앙을 막기 위해 중국 상공에 공중섬 형태의 아카데미 건설 착수.</p>
                     </div>
                     <div class="event">
-                        <span class="date">2034. 12. 24</span>
-                        <span class="title">학원도시 하르모니아 개방</span>
-                        <p class="content">각국의 기술로 완공된 학원도시 가동. 헌터와 이계인이 함께 성장하고 조사하는 거점이 됨.</p>
+                        <span class="event-date">2034. 12. 24</span>
+                        <span class="event-title">학원도시 하르모니아 개방</span>
+                        <p class="event-content">각국의 기술로 완공된 학원도시 가동. 헌터와 이계인이 함께 성장하고 조사하는 거점이 됨.</p>
                     </div>
                     <div class="event">
-                        <span class="date">2035 - 2037</span>
-                        <span class="title">아리아드네 & 아르고스 완성</span>
-                        <p class="content">라비린토스 진입용 탑승기 <span class="highlight">아리아드네</span>와 균열 관측기 <span class="highlight">아르고스</span> 개발 성공.</p>
+                        <span class="event-date">2035 - 2037</span>
+                        <span class="event-title">아리아드네 & 아르고스 완성</span>
+                        <p class="event-content">라비린토스 진입용 탑승기 아리아드네와 균열 관측기 아르고스 개발 성공.</p>
                     </div>
                     <div class="event">
-                        <span class="date">2077 - 2083</span>
-                        <span class="title">대규모 테러 사건</span>
-                        <p class="content">'퓨어 휴먼'과 '무지' 집단의 테러 발생. 이사장의 개입으로 주동자 처형 및 사태 진압.</p>
+                        <span class="event-date">2077 - 2083</span>
+                        <span class="event-title">대규모 테러 사건</span>
+                        <p class="event-content">'퓨어 휴먼'과 '무지' 집단의 테러 발생. 이사장의 개입으로 주동자 처형 및 사태 진압.</p>
                     </div>
                     <div class="event" style="border-left: 2px solid #8e5a31;">
-                        <span class="date">2127. 04. 01</span>
-                        <span class="title">NOW : 현재</span>
-                        <p class="content">하르모니아 아카데미는 인류의 최전방에서 차원을 수호하고 있습니다.</p>
+                        <span class="event-date">2127. 04. 01</span>
+                        <span class="event-title">NOW : 현재</span>
+                        <p class="event-content">하르모니아 아카데미는 인류의 최전방에서 차원을 수호하고 있습니다.</p>
                     </div>
                 </div>
             </section>
@@ -169,7 +172,7 @@
             <section id="glossary">
                 <div class="glossary-grid">
                     <div class="glossary-item">
-                        <span class="glossary-term">라비린토스</span>
+                        <span class="glossary-term">라비린토스 (Labyrinthos)</span>
                         <span class="glossary-desc">차원이 뒤섞여 생성된 거대 지하 미궁 지대.</span>
                     </div>
                     <div class="glossary-item">
@@ -178,17 +181,17 @@
                     </div>
                     <div class="glossary-item">
                         <span class="glossary-term">아리아드네 (Ariadne)</span>
-                        <span class="glossary-desc">라비린토스 내부를 안전하게 진입하기 위해 제작된 탑승기.</span>
+                        <span class="glossary-desc">라비린토스 내부를 안전하게 진입하기 위해 제작된 전용 탑승기.</span>
                     </div>
                     <div class="glossary-item">
                         <span class="glossary-term">아르고스 (Argos)</span>
-                        <span class="glossary-desc">라비린토스 안의 미세한 균열을 포착하는 관측 장치.</span>
+                        <span class="glossary-desc">라비린토스 안의 미세한 균열을 포착하는 특수 관측 장치.</span>
                     </div>
                 </div>
             </section>
 
             <section id="faction">
-                <p style="text-align:center;">준비 중입니다...</p>
+                <p style="text-align:center;">하르모니아 아카데미의 각 학부 정보를 정리 중입니다. <br> 용맹의 검, 지혜의 눈, 창조의 손 중 당신의 소속을 선택하십시오.</p>
             </section>
         </main>
         
@@ -196,16 +199,22 @@
     </div>
 
     <script>
+        // 인트로 해제 시 HOME 섹션이 먼저 나오도록 설정
         function enterAcademy() {
             document.getElementById('intro-overlay').classList.add('fade-out');
             document.body.classList.add('entered');
+            showSection('home'); // 인트로 직후 홈 화면 표시
         }
 
         function showSection(id) {
             document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.getElementById('nav-' + id).classList.add('active');
+            
+            const targetSection = document.getElementById(id);
+            if(targetSection) targetSection.classList.add('active');
+            
+            const targetNav = document.getElementById('nav-' + id);
+            if(targetNav) targetNav.classList.add('active');
         }
     </script>
 </body>
