@@ -4,199 +4,126 @@
     <meta charset="UTF-8">
     <title>이계 탐사 전문 아카데미 : 하르모니아</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display+SC:wght@700&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* 1. 전체 배경 및 레이아웃 */
         body { 
             font-family: 'Nanum Myeongjo', serif; margin: 0; padding: 0; 
             background-color: #241f1c; 
             background-image: linear-gradient(rgba(36, 31, 28, 0.85), rgba(36, 31, 28, 0.85)), url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1920&q=80');
             background-size: cover; background-attachment: fixed;
             display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            overflow-x: hidden;
         }
 
+        /* 2. 인트로 오버레이: 클릭 시 해제 */
+        #intro-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #100e0c; z-index: 1000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: all 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        #intro-overlay.fade-out { opacity: 0; visibility: hidden; transform: scale(1.1); }
+
+        .seal-button { cursor: pointer; text-align: center; }
+        .seal-button img { width: 120px; filter: sepia(1) brightness(0.8); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.05); opacity: 1; } }
+
+        /* 3. 메인 서고 컨테이너 */
         #container {
-            width: 850px; min-height: 800px; background-color: #f7f3e9; 
+            width: 800px; min-height: 800px; background-color: #f7f3e9; 
             background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
             border: 1px solid #d4c5a9; padding: 80px 60px; box-sizing: border-box; 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.4); position: relative; overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5); position: relative;
+            opacity: 0; transform: translateY(20px); transition: 1.5s ease-out;
         }
+        body.entered #container { opacity: 1; transform: translateY(0); }
 
-        header { text-align: center; border-bottom: 2px double #d4c5a9; padding-bottom: 30px; margin-bottom: 40px; }
-        h1.main-logo { font-family: 'Great Vibes', cursive; font-size: 75px; margin: 0; color: #5e4d31; cursor: pointer; }
-        nav { display: flex; justify-content: center; gap: 40px; margin-bottom: 50px; }
-        nav a { color: #a18e6a; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.3s; padding-bottom: 5px; letter-spacing: 2px; }
-        nav a.active { color: #332a1b; border-bottom: 2px solid #8e5a31; }
+        /* 4. 웅장한 헤더와 엠블럼 */
+        header { text-align: center; border-bottom: 2px double #d4c5a9; padding-bottom: 40px; margin-bottom: 45px; position: relative; }
+        .main-logo { font-family: 'Great Vibes', cursive; font-size: 75px; margin: 20px 0 5px 0; color: #5e4d31; cursor: pointer; }
+        .sub-title { font-size: 12px; letter-spacing: 8px; color: #8e7a56; font-weight: bold; }
 
-        main section { display: none; animation: pageFlip 0.8s ease-out forwards; }
-        main section.active { display: block; }
-        @keyframes pageFlip { from { opacity: 0; transform: rotateY(-10deg) translateX(30px); } to { opacity: 1; transform: rotateY(0) translateX(0); } }
+        /* 5. 네비게이션 */
+        nav { display: flex; justify-content: center; gap: 35px; margin-bottom: 50px; }
+        nav a { color: #a18e6a; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.3s; padding-bottom: 5px; }
+        nav a:hover, nav a.active { color: #332a1b; border-bottom: 2px solid #8e5a31; }
 
-        .timeline { position: relative; max-width: 100%; margin: 0 auto; padding: 20px 0; }
-        .timeline::after { content: ''; position: absolute; width: 1px; background-color: #d4c5a9; top: 0; bottom: 0; left: 120px; }
-        .time-item { position: relative; margin-bottom: 50px; padding-left: 150px; }
-        .time-date { position: absolute; left: 0; width: 100px; text-align: right; color: #8e5a31; font-weight: bold; font-size: 14px; top: 5px; }
-        .time-dot { position: absolute; left: 116px; width: 9px; height: 9px; background: #8e5a31; border-radius: 50%; top: 10px; z-index: 1; border: 2px solid #f7f3e9; }
-        .time-content { background: rgba(255,255,255,0.3); padding: 15px 20px; border-radius: 3px; border-left: 3px solid #d4c5a9; }
-        .time-title { margin: 0 0 10px 0; font-size: 18px; color: #5e4d31; font-weight: bold; }
-        .time-text { margin: 0; font-size: 14.5px; line-height: 1.8; color: #4a4238; text-align: justify; word-break: keep-all; }
+        /* 6. 섹션 전환 (책 넘기기 애니메이션) */
+        main section { display: none; line-height: 2.5; color: #4a4238; transform-origin: left center; }
+        main section.active { display: block; animation: flipIn 0.8s forwards; }
+        @keyframes flipIn { from { opacity: 0; transform: rotateY(-15deg) translateX(30px); } to { opacity: 1; transform: rotateY(0); } }
+
+        /* 용어 사전 스타일 */
+        .glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; margin-top: 20px; }
+        .glossary-item { background: rgba(142, 122, 86, 0.05); padding: 12px; border: 1px solid rgba(212, 197, 169, 0.4); }
+        .glossary-term { color: #8e5a31; font-weight: bold; border-bottom: 1px solid rgba(142, 90, 49, 0.1); display: block; }
+        
         .highlight { color: #8e5a31; font-weight: bold; }
-
-        footer { margin-top: 80px; text-align: center; font-size: 10px; color: #a39987; letter-spacing: 3px; }
+        footer { margin-top: 60px; text-align: center; font-size: 10px; color: #a39987; letter-spacing: 3px; }
     </style>
 </head>
 <body>
 
+    <div id="intro-overlay" onclick="enterAcademy()">
+        <div class="seal-button">
+            <img src="https://cdn-icons-png.flaticon.com/512/3522/3522192.png" alt="Seal">
+            <p style="color:#8e7a56; letter-spacing:5px;">CLICK TO UNSEAL</p>
+        </div>
+    </div>
+
     <div id="container">
         <header>
             <h1 class="main-logo" onclick="showSection('home')">Harmonia</h1>
-            <p style="font-size: 11px; letter-spacing: 8px; color: #8e7a56; font-weight: bold; margin-top: 5px;">이계 탐사 전문 아카데미</p>
+            <p class="sub-title">이계 탐사 전문 아카데미</p>
         </header>
 
         <nav>
             <a onclick="showSection('home')" class="active">HOME</a>
             <a onclick="showSection('history')">HISTORY</a>
+            <a onclick="showSection('glossary')">GLOSSARY</a>
             <a onclick="showSection('faction')">FACTION</a>
-            <a onclick="showSection('school')">SCHOOL</a>
         </nav>
 
         <main>
             <section id="home" class="active">
-                <div style="text-align: center; padding: 40px 0; line-height: 2.3;">
-                    <p>이계 탐사 전문 아카데미 <span class="highlight">하르모니아</span>의 학생, 교사 여러분들을 환영합니다.</p>
-                    <p>이곳은 여러분이 필요로 하시는<br>학교에 대한 정보, 역사, 각 시설 등에 대하여 기록해 놓은 서고입니다.</p>
-                    <br>
-                    <p style="font-size: 14px; color: #7a6c57;">상단의 메뉴를 클릭하시면 원하시는 정보를 확인하실 수 있습니다.</p>
-                </div>
+                <p>하르모니아 아카데미 <span class="highlight">비밀 서고</span>에 오신 것을 환영합니다.</p>
+                <p>이곳은 대침식 이후 인류의 생존과 탐사를 위한 모든 기록이 보관된 장소입니다.</p>
             </section>
 
             <section id="history">
-                <div class="timeline">
-                    <div class="time-item">
-                        <div class="time-date">2024.12.24</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">첫 번째 게이트 발생</div>
-                            <p class="time-text">중국 사천 지방에서 소규모 게이트 발생. 초기 무지 속에 방치되던 균열은 공안에 의해 뒤늦게 연구가 시작되었으나 재앙의 서막이 되었다.</p>
-                        </div>
-                    </div>
+                <h2 style="font-family: 'Playfair Display SC', serif; font-size: 28px;">Chronicle</h2>
+                <p>2024년 12월 24일, 첫 게이트의 발생과 중국의 몰락... [기록 작성 중]</p>
+            </section>
 
-                    <div class="time-item">
-                        <div class="time-date">2024.12.31</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">게이트 브레이크 - 이계화</div>
-                            <p class="time-text">방치된 게이트가 임계점을 넘어 <span class="highlight">이계화(異界化)</span>를 일으킴. 멸망해가던 차원의 주민들이 피난을 왔으나, 중국 측의 공격으로 인해 <span class="highlight">제1차 침식 대전</span>이 발발함.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2025.01.04</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">1차 침식 대전 - 중국의 몰락</div>
-                            <p class="time-text">현대 병기는 이계인의 이능에 무력화됨. 베이징에 운석이 투하되며 대륙의 심장부가 침묵하고, 중국은 사실상 국가 기능을 상실함.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2025.01.11</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">성좌와 시스템, 그리고 헌터</div>
-                            <p class="time-text">절망 속에서 기이한 존재 <span class="highlight">[성좌]</span>와 <span class="highlight">[시스템]</span>의 선택을 받은 초월자들, '헌터'가 등장하여 전세의 균형을 맞추기 시작함.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2025.01.24</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">'이계침식' 라비린토스</div>
-                            <p class="time-text">연쇄 게이트 브레이크로 차원들이 뒤섞이며 대륙 중앙이 거대한 미궁으로 변모함. 존재가 오염되어 인간도 이계인도 아닌 무언가로 변해버리는 재앙이 발생함.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2025.01.25</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">하르모니아 연맹 결성</div>
-                            <p class="time-text">공멸의 위기 앞에 인류와 이계인은 휴전을 선언함. 생존과 사태 해결을 위해 일시적 동맹인 <span class="highlight">'하르모니아 연맹'</span>이 탄생함.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2025.01.27</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">연맹 출전 - 공략 실패</div>
-                            <p class="time-text">라비린토스 공략에 나섰으나 수많은 희생 끝에 완전 공략은 불가능함이 판명됨. 다만 공간 술식을 통해 침식 범위를 중국 지하로 한정하는 봉인에는 성공함.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2025.02.04</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">종전 및 하르모니아 조약</div>
-                            <p class="time-text">지하 게이트 관리를 위해 양 진영이 손을 맞잡음. 조약의 영웅들을 기리며 공존과 인권을 보장하는 <span class="highlight">'하르모니아 조약'</span>이 체결됨.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2025.02.15</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">이계인 거주지구 정착</div>
-                            <p class="time-text">구 중국 토지를 거주지구로 지정. 지구 각국의 지원 하에 라비린토스 외곽에 새로운 삶의 터전이 마련됨.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2027.12.19</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">공중섬 개발 프로젝트</div>
-                            <p class="time-text">미래의 라비린토스 발생을 대비한 교육기관 설립 추진. 양측의 기술력을 집약하여 대륙 상공에 거대한 <span class="highlight">공중섬</span> 테라포밍 시작.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2058.12.24</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">학원도시 '하르모니아' 완공</div>
-                            <p class="time-text">게이트 소재를 활용한 건축 완료. 미래를 이어갈 인재 양성을 위한 <span class="highlight">이계 탐사 전문 아카데미</span>가 정식으로 문을 엶.</p>
-                        </div>
-                    </div>
-
-                    <div class="time-item">
-                        <div class="time-date">2124.04.01</div>
-                        <div class="time-dot"></div>
-                        <div class="time-content">
-                            <div class="time-title">현재 (Now)</div>
-                            <p class="time-text">하르모니아는 여전히 인류와 이계인의 희망으로 하늘 위에 떠 있다.</p>
-                        </div>
-                    </div>
+            <section id="glossary">
+                <h2 style="font-family: 'Playfair Display SC', serif; font-size: 28px;">Glossary</h2>
+                <div class="glossary-grid">
+                    <div class="glossary-item"><span class="glossary-term">성좌 (Constellation)</span><span class="glossary-desc">인간을 선택하여 시스템의 힘을 부여하는 초월적 존재.</span></div>
+                    <div class="glossary-item"><span class="glossary-term">라비린토스</span><span class="glossary-desc">차원이 뒤섞여 생성된 거대 미궁 지대.</span></div>
                 </div>
             </section>
-            
-            <section id="faction"><p style="text-align: center; padding-top: 50px;">학부 정보를 정리 중입니다.</p></section>
-            <section id="school"><p style="text-align: center; padding-top: 50px;">시설 안내를 준비 중입니다.</p></section>
+
+            <section id="faction">
+                <h2 style="font-family: 'Playfair Display SC', serif; font-size: 28px;">Factions</h2>
+                <p>용맹의 검, 지혜의 눈, 창조의 손. 당신의 운명을 선택하십시오.</p>
+            </section>
         </main>
         
         <footer>© HARMONIA ACADEMY. ALL RIGHTS RESERVED.</footer>
     </div>
 
     <script>
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('main section');
-            sections.forEach(sec => sec.classList.remove('active'));
-            const links = document.querySelectorAll('nav a');
-            links.forEach(link => link.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            const activeLink = Array.from(links).find(link => link.innerText.toLowerCase() === sectionId.toLowerCase());
-            if (activeLink) activeLink.classList.add('active');
-            else if (sectionId === 'home') links[0].classList.add('active');
+        function enterAcademy() {
+            document.getElementById('intro-overlay').classList.add('fade-out');
+            document.body.classList.add('entered');
+        }
+
+        function showSection(id) {
+            document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
         }
     </script>
 </body>
