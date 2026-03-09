@@ -46,7 +46,15 @@
         nav a { color: #a18e6a; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent; }
         nav a:hover, nav a.active { color: #332a1b; border-bottom: 2px solid #8e5a31; }
 
-        /* 4. HISTORY (16개 핵심 사건 완벽 복구) */
+        /* 4. ACADEMY (신규 랭크 시스템 테이블) */
+        .rank-table { width: 100%; border-collapse: collapse; margin-top: 25px; font-size: 14.5px; }
+        .rank-table th, .rank-table td { padding: 15px; border-bottom: 1px solid rgba(142, 90, 49, 0.2); text-align: left; }
+        .rank-table th { color: #8e5a31; font-family: 'Playfair Display SC', serif; text-align: center; }
+        .rank-label { font-weight: bold; text-align: center; width: 60px; font-family: 'Playfair Display SC', serif; font-size: 18px; }
+        .rank-s { color: #b8860b; text-shadow: 0 0 8px rgba(184, 134, 11, 0.4); }
+        .rank-a { color: #8e5a31; }
+
+        /* 5. HISTORY (16개 핵심 사건) */
         .timeline { position: relative; max-width: 700px; margin: 0 auto; padding-left: 30px; border-left: 2px solid #d4c5a9; }
         .event { position: relative; margin-bottom: 45px; padding-left: 20px; }
         .event::before { content: ''; position: absolute; width: 14px; height: 14px; background: #8e5a31; border: 3px solid #f7f3e9; border-radius: 50%; left: -31px; top: 5px; }
@@ -54,16 +62,11 @@
         .event-title { font-weight: bold; font-size: 16px; color: #332a1b; display: block; margin-bottom: 10px; border-bottom: 1px solid rgba(142, 90, 49, 0.1); padding-bottom: 5px; }
         .event-content { font-size: 14.5px; line-height: 1.8; text-align: justify; color: #4a4238; }
 
-        /* 5. ACADEMY (랭크 시스템) */
-        .rank-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
-        .rank-table th, .rank-table td { padding: 12px; border-bottom: 1px solid rgba(142, 90, 49, 0.2); text-align: center; }
-        .rank-table th { color: #8e5a31; font-family: 'Playfair Display SC', serif; }
-        .rank-s { color: #b8860b; font-weight: bold; text-shadow: 0 0 5px rgba(184, 134, 11, 0.3); }
-
-        /* 6. GLOSSARY (9가지 설정 사전 완벽 반영) */
-        .glossary-category { font-family: 'Playfair Display SC', serif; font-size: 19px; color: #5e4d31; border-left: 4px solid #8e5a31; padding-left: 15px; margin: 40px 0 20px 0; font-weight: bold; }
+        /* 6. GLOSSARY (9가지 설정 사전) */
+        .glossary-category { font-family: 'Playfair Display SC', serif; font-size: 19px; color: #5e4d31; border-left: 4px solid #8e5a31; padding-left: 15px; margin: 45px 0 20px 0; font-weight: bold; }
         .glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .glossary-item { background: rgba(142, 122, 86, 0.05); padding: 20px; border: 1px solid rgba(212, 197, 169, 0.4); }
+        .glossary-item { background: rgba(142, 122, 86, 0.05); padding: 20px; border: 1px solid rgba(212, 197, 169, 0.4); transition: 0.3s; }
+        .glossary-item:hover { background: rgba(142, 122, 86, 0.1); border-color: #8e5a31; }
         .glossary-term { color: #8e5a31; font-weight: bold; font-size: 15px; display: block; margin-bottom: 8px; border-bottom: 1px dashed rgba(142, 90, 49, 0.2); padding-bottom: 5px; }
         .glossary-desc { font-size: 13.5px; line-height: 1.7; color: #5a5248; text-align: justify; }
 
@@ -105,25 +108,26 @@
             </section>
 
             <section id="academy">
-                <h3 style="font-family: 'Playfair Display SC', serif; color: #5e4d31;">Hunter Rank System</h3>
-                <p>아카데미는 개인의 역량과 공헌도에 따라 엄격한 등급 체계를 운영합니다.</p>
+                <h3 style="font-family: 'Playfair Display SC', serif; color: #5e4d31; border-bottom: 1px solid #d4c5a9; padding-bottom: 10px;">Explorer Rank System</h3>
+                <p style="margin-bottom: 25px;">아카데미는 탐사자의 영혼이 도달한 깊이에 따라 아래와 같이 등급을 분류합니다.</p>
                 <table class="rank-table">
-                    <thead><tr><th>Grade</th><th>Classification</th><th>Description</th></tr></thead>
+                    <thead><tr><th>Rank</th><th>Classification</th><th>Definition</th></tr></thead>
                     <tbody>
-                        <tr><td class="rank-s">S</td><td>Transcendent</td><td>국가급 재앙에 대응 가능한 초월적 권능자</td></tr>
-                        <tr><td>A</td><td>Master</td><td>라비린토스 심층부 탐사 및 지휘 가능자</td></tr>
-                        <tr><td>B</td><td>Elite</td><td>숙련된 전투 및 전략 수행 능력 보유자</td></tr>
-                        <tr><td>C</td><td>Expert</td><td>표준적인 게이트 공략 및 실전 투입 가능자</td></tr>
-                        <tr><td>D</td><td>Regular</td><td>아카데미 정규 교육과정을 이수 중인 학생</td></tr>
-                        <tr><td>F</td><td>Beginner</td><td>시스템에 각성한 직후의 초기 단계 헌터</td></tr>
+                        <tr><td class="rank-label rank-s">S</td><td class="rank-s">초월자</td><td class="rank-s">자신만의 별을 찾고 자신만의 질서를 세운 자.</td></tr>
+                        <tr><td class="rank-label rank-a">A</td><td class="rank-a">초월자의 씨앗</td><td class="rank-a">별을 향해 손을 뻗는 자.</td></tr>
+                        <tr><td class="rank-label">B</td><td>상급 초인</td><td>탐사를 넘어 그 앞을 바라보는 자.</td></tr>
+                        <tr><td class="rank-label">C</td><td>중급 초인</td><td>탐사에 능숙해진 탐사자.</td></tr>
+                        <tr><td class="rank-label">D</td><td>하급 초인</td><td>탐사에 익숙해진 탐사자.</td></tr>
+                        <tr><td class="rank-label">E</td><td>운동선수 수준</td><td>조금 배운 탐사자.</td></tr>
+                        <tr><td class="rank-label">F</td><td>일반인</td><td>막 배우기 시작한 탐사자.</td></tr>
                     </tbody>
                 </table>
             </section>
 
             <section id="history">
                 <div class="timeline">
-                    <div class="event"><span class="event-date">2024. 12. 24</span><span class="event-title">최초의 게이트 발생</span><p class="event-content">중국 사천 지방에서 미지의 작은 게이트가 발생하였으나 무지 속에 방치됨. 이후 공안에 의해 발견되어 조사가 시작됨.</p></div>
-                    <div class="event"><span class="event-date">2024. 12. 31</span><span class="event-title">최초의 게이트 브레이크 - 이계화 발생</span><p class="event-content">방치되어 과부하된 게이트가 폭주하며 사천 지방을 침식 및 이계화(異界化) 시킴. 피난 온 이계인들과의 소통 실패로 1차 침식 대전 발발.</p></div>
+                    <div class="event"><span class="event-date">2024. 12. 24</span><span class="event-title">최초의 게이트 발생</span><p class="event-content">중국 사천 지방에서 미지의 작은 게이트가 발생하였으나 방치됨. 이후 공안에 의해 발견되어 연구가 시작됨.</p></div>
+                    <div class="event"><span class="event-date">2024. 12. 31</span><span class="event-title">최초의 게이트 브레이크 - 이계화 발생</span><p class="event-content">과부하된 게이트가 폭주하며 사천 지방을 침식 및 이계화(異界化) 시킴. 피난 온 이계인들과의 소통 실패로 1차 침식 대전 발발.</p></div>
                     <div class="event"><span class="event-date">2025. 01. 04</span><span class="event-title">제1차 침식 대전 - 중국의 몰락</span><p class="event-content">이계인들의 이능과 무공 앞에 현대 무기가 무력화됨. 베이징에 투하된 거대 운석으로 인해 대륙의 국가 시스템이 붕괴함.</p></div>
                     <div class="event"><span class="event-date">2025. 01. 11</span><span class="event-title">성좌와 시스템, 그리고 헌터의 등장</span><p class="event-content">[성좌]의 선택을 받은 민간인들이 [시스템]을 통해 초월적인 힘을 얻으며 헌터로서 참전. 전황이 대등한 위치로 올라옴.</p></div>
                     <div class="event"><span class="event-date">2025. 01. 24</span><span class="event-title">'이계침식' 라비린토스 발생</span><p class="event-content">연쇄 게이트 브레이크와 에너지 충돌로 중국 땅이 거대 미궁으로 변모. 존재가 오염되어 인간도 이계인도 아닌 무언가로 변해버림.</p></div>
@@ -159,7 +163,7 @@
                 </div>
             </section>
 
-            <section id="faction"><p style="text-align:center;">각 학부 설정은 준비 중입니다.</p></section>
+            <section id="faction"><p style="text-align:center;">각 학부 설정은 관리관님의 추가 지시를 기다리고 있습니다.</p></section>
         </main>
         
         <footer>© HARMONIA ACADEMY. ALL RIGHTS RESERVED.</footer>
