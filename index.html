@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display+SC:wght@700&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 1. 기본 레이아웃 및 디자인 */
+        /* 1. 기본 레이아웃 및 배경 */
         body { 
             font-family: 'Nanum Myeongjo', serif; margin: 0; padding: 0; 
             background-color: #1a1714; color: #4a4238; overflow-x: hidden;
@@ -46,32 +46,29 @@
         nav a { color: #a18e6a; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent; }
         nav a:hover, nav a.active { color: #332a1b; border-bottom: 2px solid #8e5a31; }
 
-        /* 4. ACADEMY (탐사자 등급 시스템) */
+        /* 4. HISTORY (사용자 제공 원문 100% 반영) */
+        .timeline { position: relative; max-width: 700px; margin: 0 auto; padding-left: 30px; border-left: 2px solid #d4c5a9; }
+        .event { position: relative; margin-bottom: 50px; padding-left: 20px; }
+        .event::before { content: ''; position: absolute; width: 14px; height: 14px; background: #8e5a31; border: 3px solid #f7f3e9; border-radius: 50%; left: -31px; top: 5px; }
+        .event-date { font-weight: bold; color: #8e5a31; font-size: 17px; display: block; margin-bottom: 5px; }
+        .event-title { font-weight: bold; font-size: 16px; color: #332a1b; display: block; margin-bottom: 10px; border-bottom: 1px solid rgba(142, 90, 49, 0.1); padding-bottom: 5px; }
+        .event-content { font-size: 14px; line-height: 1.8; text-align: justify; color: #4a4238; }
+
+        /* 5. GLOSSARY & ACADEMY 스타일 */
         .rank-table { width: 100%; border-collapse: collapse; margin-top: 25px; font-size: 14px; }
         .rank-table td, .rank-table th { padding: 12px; border-bottom: 1px solid rgba(142, 90, 49, 0.2); text-align: left; }
         .rank-label { font-weight: bold; text-align: center; font-family: 'Playfair Display SC', serif; font-size: 17px; }
         .rank-s { color: #b8860b; text-shadow: 0 0 5px rgba(184, 134, 11, 0.3); }
-
-        /* 5. HISTORY (16개 핵심 사건) */
-        .timeline { position: relative; max-width: 700px; margin: 0 auto; padding-left: 30px; border-left: 2px solid #d4c5a9; }
-        .event { position: relative; margin-bottom: 45px; padding-left: 20px; }
-        .event::before { content: ''; position: absolute; width: 14px; height: 14px; background: #8e5a31; border: 3px solid #f7f3e9; border-radius: 50%; left: -31px; top: 5px; }
-        .event-date { font-weight: bold; color: #8e5a31; font-size: 17px; display: block; margin-bottom: 5px; }
-        .event-title { font-weight: bold; font-size: 16px; color: #332a1b; display: block; margin-bottom: 10px; border-bottom: 1px solid rgba(142, 90, 49, 0.1); padding-bottom: 5px; }
-        .event-content { font-size: 14.5px; line-height: 1.8; text-align: justify; color: #4a4238; }
-
-        /* 6. GLOSSARY (9가지 설정 - 수정 반영) */
-        .glossary-category { font-family: 'Playfair Display SC', serif; font-size: 19px; color: #5e4d31; border-left: 4px solid #8e5a31; padding-left: 15px; margin: 45px 0 20px 0; font-weight: bold; }
         .glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .glossary-item { background: rgba(142, 122, 86, 0.05); padding: 20px; border: 1px solid rgba(212, 197, 169, 0.4); }
         .glossary-term { color: #8e5a31; font-weight: bold; font-size: 15px; display: block; margin-bottom: 8px; border-bottom: 1px dashed rgba(142, 90, 49, 0.2); padding-bottom: 5px; }
-        .glossary-desc { font-size: 13.5px; line-height: 1.7; color: #5a5248; text-align: justify; }
-
-        /* 7. FACTION (3대 학부) */
-        .faction-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 30px; }
-        .faction-card { background: rgba(142, 122, 86, 0.05); border: 1px solid rgba(212, 197, 169, 0.6); padding: 25px 15px; text-align: center; }
-        .faction-name { font-weight: bold; font-size: 17px; color: #5e4d31; display: block; margin-bottom: 10px; border-bottom: 1px solid rgba(142, 90, 49, 0.1); padding-bottom: 5px; }
-        .faction-desc { font-size: 12.5px; color: #6a5f53; line-height: 1.7; }
+        
+        /* 6. FACTION */
+        .faction-block { background: rgba(142, 122, 86, 0.05); border: 1px solid rgba(212, 197, 169, 0.6); padding: 30px; margin-bottom: 30px; }
+        .faction-header { font-size: 20px; color: #5e4d31; font-weight: bold; border-bottom: 2px solid #8e5a31; padding-bottom: 10px; margin-bottom: 15px; display: block; }
+        .dept-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; padding: 0; margin: 0; }
+        .dept-item { font-size: 13.5px; padding-left: 15px; position: relative; }
+        .dept-item::before { content: 'ㄴ'; position: absolute; left: 0; color: #8e5a31; }
 
         section { display: none; animation: fadeIn 0.8s forwards; }
         section.active { display: block; }
@@ -127,48 +124,59 @@
 
             <section id="history">
                 <div class="timeline">
-                    <div class="event"><span class="event-date">2024. 12. 24</span><span class="event-title">최초의 게이트 발생</span><p class="event-content">중국 사천 지방에서 미지의 작은 게이트가 발생하였으나 무지 속에 방치됨. 이후 공안에 의해 발견되어 연구가 시작됨.</p></div>
-                    <div class="event"><span class="event-date">2024. 12. 31</span><span class="event-title">최초의 게이트 브레이크 - 이계화 발생</span><p class="event-content">과부하된 게이트가 폭주하며 사천 지방을 침식 및 이계화(異界化) 시킴. 피난 온 이계인들과의 소통 실패로 1차 침식 대전 발발.</p></div>
-                    <div class="event"><span class="event-date">2025. 01. 04</span><span class="event-title">제1차 침식 대전 - 중국의 몰락</span><p class="event-content">이계인들의 이능과 무공 앞에 현대 무기가 무력화됨. 베이징에 투하된 거대 운석으로 인해 대륙의 국가 시스템이 붕괴함.</p></div>
-                    <div class="event"><span class="event-date">2025. 01. 11</span><span class="event-title">성좌와 시스템, 그리고 헌터의 등장</span><p class="event-content">[성좌]의 선택을 받은 민간인들이 [시스템]을 통해 초월적인 힘을 얻으며 헌터로서 참전.</p></div>
-                    <div class="event"><span class="event-date">2025. 01. 24</span><span class="event-title">'이계침식' 라비린토스 발생</span><p class="event-content">연쇄 게이트 브레이크와 에너지 충돌로 중국 땅이 거대 미궁으로 변모. 존재가 오염된 인간과 이계인이 배회함.</p></div>
-                    <div class="event"><span class="event-date">2025. 01. 25</span><span class="event-title">1차 침식 대전 휴전 - '하르모니아 연맹' 결성</span><p class="event-content">공멸의 위기 앞에 인류와 이계인이 휴전을 선언하고 하르모니아 연맹을 결성함.</p></div>
-                    <div class="event"><span class="event-date">2025. 01. 27</span><span class="event-title">라비린토스 공략 실패 및 봉인 술식</span><p class="event-content">완전 공략은 불가능했으나 술식을 통해 침식 범위를 중국 지하로 한정하는 데 성공.</p></div>
-                    <div class="event"><span class="event-date">2025. 02. 04</span><span class="event-title">종전 및 하르모니아 조약 체결</span><p class="event-content">라비린토스 관리를 위해 인류와 이계인이 협력하기로 계약. 이계인의 인권과 신분 보장 확정.</p></div>
-                    <div class="event"><span class="event-date">2025. 02. 15</span><span class="event-title">이계인 거주지구 확정</span><p class="event-content">라비린토스의 영향이 적은 중국 영토 일부를 이계인 거점으로 지정하고 정착을 지원함.</p></div>
-                    <div class="event"><span class="event-date">2025. 02. 18</span><span class="event-title">'학원도시 하르모니아' 공사 시작</span><p class="event-content">미래의 재앙을 막기 위해 중국 상공에 공중섬 형태의 거대 요새 건설 착수.</p></div>
-                    <div class="event"><span class="event-date">2034. 12. 24</span><span class="event-title">학원도시 하르모니아 개방</span><p class="event-content">완공된 학원도시에 각국의 헌터와 이계인들이 상주하며 라비린토스 조사와 교육 시작.</p></div>
-                    <div class="event"><span class="event-date">2035. 01. 01</span><span class="event-title">탑승기 '아리아드네' 완성</span><p class="event-content">라비린토스 내부에 안전하게 진입하기 위한 전용 탑승 장치 제작 성공.</p></div>
-                    <div class="event"><span class="event-date">2037. 01. 05</span><span class="event-title">관측기 '아르고스' 완성</span><p class="event-content">라비린토스 안의 미세한 균열을 빠르게 포착할 수 있는 감시 시스템 구축.</p></div>
-                    <div class="event"><span class="event-date">2077. 07. 07</span><span class="event-title">하르모니아 테러 발생</span><p class="event-content">'퓨어 휴먼'과 '무지' 집단의 연합 테러 시도. 이사장의 직접 개입으로 주동자 처형.</p></div>
-                    <div class="event"><span class="event-date">2083. 05. 04</span><span class="event-title">2차 테러 및 아르고스 탈취 시도</span><p class="event-content">'무지'의 재침공으로 아르고스 탈취 위기가 있었으나 이사장의 도움으로 방어함.</p></div>
-                    <div class="event" style="border-left: 2px solid #8e5a31;"><span class="event-date">2127. 04. 01</span><span class="event-title">NOW : 현재</span><p class="event-content">하르모니아 아카데미는 인류 최전방에서 차원을 수호하고 있습니다.</p></div>
+                    <div class="event"><span class="event-date">2024. 12. 24</span><span class="event-title">첫 게이트 발생</span>
+                        <p class="event-content">중국의 사천 지방에서 작은 게이트 발생, 해당 게이트는 발생한 이후 무지했던 이들에 의해서 방치되다가 공안에 의해 발견되어 연구를 시작하게 되었다.</p></div>
+                    <div class="event"><span class="event-date">2024. 12. 31</span><span class="event-title">첫 게이트 브레이크 - 이계화 발생</span>
+                        <p class="event-content">방치되어 과부하가 시작된 게이트가 게이트 브레이크 현상이 일어나며 사천 지방을 침식하면서 이계화(異界化) 시키기 시작하였다. 그와 동시에 멸망해가던 해당 차원에 있던 주민들이 이 곳으로 피난을 오게 되었고 그 들은 소통을 하고자 시도했지만 갑작스럽게 벌어진 일에 중국쪽은 해당 현상의 원인을 그 곳의 주민들이라 판단하여 공격을 개시하며 1차 침식 대전의 시작을 알렸다.</p></div>
+                    <div class="event"><span class="event-date">2025. 01. 04</span><span class="event-title">1차 침식 대전 - 중국의 몰락</span>
+                        <p class="event-content">처음부터 온건, 평화를 주장하던 이계인들이었고 현대의 무기를 각자가 가진 이능과 무공으로 쳐낸 그들은 설득이 통하지 않자 반격을 시도하였다. 그리고 현대의 무기는 너무나도 쉽게 무력화되었고 결국 이계인들은 지구에서 살아가기 위해서 진격을 시작하였고 각 지방을 점령하기 시작하였다. 그 이후 중국에서 다른 국가에 도움을 요청하고 UN에서 사태의 심각성을 인식하고 조치를 취하려 하였고 사태는 커져갔으며 이계인들의 대응은 점점 잔인해지면서 결국 어느 이계인이 가볍게 손짓하자 베이징에 운석이 박히면서 중국은 몰락의 길을 걷게 되었다.</p></div>
+                    <div class="event"><span class="event-date">2025. 01. 11</span><span class="event-title">시스템, 성좌의 등장. 그리고 헌터의 등장.</span>
+                        <p class="event-content">UN군조차 제대로 된 대응을 하지 못 하고 당하던 도중 여러가지 이유로 중국에 왔던 민간인들 중 몇몇이 기이한 존재 [성좌]라는 존재의 선택을 받으면서 이계인들의 앞을 막아섰고 그들을 시작으로 몇몇 소수의 인간들이 [시스템]이라고 하는 기이한 것의 선택을 받으면서 이계인들을 막으려고 하면서 전투의 규모는 커지면서 대등한 위치로 올라왔지만...</p></div>
+                    <div class="event"><span class="event-date">2025. 01. 24</span><span class="event-title">'이계침식' 라비린토스</span>
+                        <p class="event-content">수 많은 무기와 수많은 이들이 부딪히면서 다양한 에너지의 충돌이 일어나고 대전 도중 일어난 게이트를 그 누구도 공략하지 못 하면서 일어난 재앙. 작은 게이트 여러개가 동시에 게이트 브레이크를 일으키고 강대한 힘이 동시에 충돌하면서 벌어진 재앙. 그 곳은 수 많은 게이트의 차원들이 뒤섞이면서 급격한 침식을 일으키기 시작했고 그들이 싸우던 중국 땅은 한번에 터져 나가는 게이트 브레이크에 휘말리고 헌터도 일반인도 갑자기 다가오는 침식 현상에 휘말리면서 존재가 오염되어 인간도 이계인도 아닌 무언가로 변해버렸다.</p></div>
+                    <div class="event"><span class="event-date">2025. 01. 25</span><span class="event-title">1차 침식 대전 휴전 - '하르모니아 연맹' 결성</span>
+                        <p class="event-content">저 것을 그대로 두면 모두가 살아남을 수 없다는 것을 깨달은 양쪽 진영은 휴전을 선언하고 폭발하여 뒤섞인 게이트들을 해결하기 위해서... 해결하지 못 하더라도 지금 당장의 상황을 넘기기 위해서 그들은 일시적으로 동맹을 맺으면서 계약을 맺으면서 '하르모니아 연맹'이 탄생했다.</p></div>
+                    <div class="event"><span class="event-date">2025. 01. 27</span><span class="event-title">하르모니아 연맹, 출전 - 완전한 공략 실패</span>
+                        <p class="event-content">하르모니아 연맹의 이계인 그리고 헌터들로 이루어진 연맹은 뒤섞인 지하미궁 라비린토스에 스스로 발걸음을 옮겼다. 해당 작전에서 수 많은 이들이 목숨을 잃었지만 불안정해진 그 곳을 완전히 공략하는 것은 불가능했다. 그래도 안정화 시키는 것에 성공했고 봉인 술식을 펼쳐 해당 침식과 게이트를 중국의 지하로 한정하는 데에 성공했으며... 중국이라고 하는 거대한 하나의 국가는 그렇게 사라지게 되었다.</p></div>
+                    <div class="event"><span class="event-date">2025. 02. 04</span><span class="event-title">종전, 그리고 하르모니아 조약</span>
+                        <p class="event-content">봉인은 온전치 않으며 후에 게이트가 발생할 경우 지하에 발생하기에 관리할 이들이 필요하다. 그 사실을 지구인과 이계인 모두가 느꼈고 한 때 서로의 동포를 공격하던 손을 맞잡았다. 서로가 공존하기 위해서 협력하기로 약속하며, 라비린토스를 안정화 시키고자 뛰어든 영웅들을 기리기 위해 '하르모니아 조약'이라는 이름이 붙여졌다.</p></div>
+                    <div class="event"><span class="event-date">2025. 02. 15</span><span class="event-title">이계인들의 거주지구 결정</span>
+                        <p class="event-content">이계인들이 지낼 곳을 찾던 도중 이계인들의 제안을 받아 그들의 거주지구를 한 때 중국이었던 그 토지로 하였고 그들은 라비린토스의 영향이 가장 적은 곳에 거점을 만들면서 정착하게 되었다.</p></div>
+                    <div class="event"><span class="event-date">2025. 02. 18</span><span class="event-title">'학원도시 하르모니아' 공사 시작</span>
+                        <p class="event-content">제2의 라비린토스가 발생할 것을 대비해 지구인과 이계인들은 오랜 상의 끝에 공중섬을 개발하기로 결정하고 공사를 시작했다.</p></div>
+                    <div class="event"><span class="event-date">2034. 12. 24</span><span class="event-title">학원도시 하르모니아 개방</span>
+                        <p class="event-content">중국의 상공에 떠오른 거대한 학원도시. 각 국의 기술과 지원을 받으며 완공된 그 곳은 헌터들과 이계인들이 머물며 성장하고 라비린토스를 조사하는 장소로서 활동을 시작하였다.</p></div>
+                    <div class="event"><span class="event-date">2035. 01. 01</span><span class="event-title">탑승기 "아리아드네"의 완성</span>
+                        <p class="event-content">이계인들과 지구인들은 힘을 합쳐 라비린토스 내부에 안전하게 진입할 수 있는 탑승기 "아리아드네"를 완성하는데 성공했다.</p></div>
+                    <div class="event"><span class="event-date">2037. 01. 05</span><span class="event-title">관측기 "아르고스"의 완성</span>
+                        <p class="event-content">라비린토스 안의 균열을 빠르게 포착할 수 있는 관측기 "아르고스"를 만드는 데에 성공했다.</p></div>
+                    <div class="event"><span class="event-date">2077. 07. 07</span><span class="event-title">하르모니아 테러 발생</span>
+                        <p class="event-content">순수주의자 집단 "퓨어 휴먼"과 이계인 집단 "무지"는 아카데미 축제에 맞추어 테러를 진행하였고 둘 모두 아카데미 이사장에게 잡혀 끔찍하게 처형당했다.</p></div>
+                    <div class="event"><span class="event-date">2083. 05. 04</span><span class="event-title">2차 테러 및 아르고스 탈취시도</span>
+                        <p class="event-content">무지의 테러에 의해서 2차로 피해를 입고 아르고스를 탈취당할 뻔한 하르모니아였지만 이번에도 이사장의 도움을 받아 무사히 넘길 수 있었다.</p></div>
+                    <div class="event" style="border-left: 2px solid #8e5a31;"><span class="event-date">2127. 04. 01</span><span class="event-title">NOW : 현재</span>
+                        <p class="event-content">하르모니아 아카데미는 인류 최전방에서 여전히 차원의 경계를 지키고 있습니다.</p></div>
                 </div>
             </section>
 
             <section id="glossary">
-                <div class="glossary-category">Settings of the World</div>
                 <div class="glossary-grid">
-                    <div class="glossary-item"><span class="glossary-term">침식 미궁 : 라비린토스</span><p class="glossary-desc">게이트 브레이크와 거대한 힘의 여파가 뒤섞여 만들어진 차원융합형 미궁. 개미굴 구조를 띠며 탐사 시 균열이 발견된다.</p></div>
-                    <div class="glossary-item"><span class="glossary-term">성좌 (Constellation)</span><p class="glossary-desc">지구인에게 힘을 빌려주는 신화, 전설 속 존재들. 세계의 의지의 요청을 받아 마음에 드는 인간에게 힘을 부여한다.</p></div>
-                    <div class="glossary-item"><span class="glossary-term">시스템 (System)</span><p class="glossary-desc"><span class="highlight">지구인에게만 보이는</span> 세계의 의지. 힘을 제대로 사용할 수 있도록 필터를 걸어 걸음마부터 가르치는 역할을 한다.</p></div>
-                    <div class="glossary-item"><span class="glossary-term">이계화 (異界化)</span><p class="glossary-desc">게이트 에너지가 현실로 유출되어 환경을 변질시키는 현상. 지속될 경우 복구가 불가능한 상태가 되기도 한다.</p></div>
-                    <div class="glossary-item"><span class="glossary-term">게이트 브레이크 (Gate Break)</span><p class="glossary-desc">게이트 방치 시 마수들이 쏟아져 나오는 현상. 급격한 이계화를 동반하여 매우 위험한 재앙으로 간주된다.</p></div>
-                    <div class="glossary-item"><span class="glossary-term">퓨어 휴먼 (Pure Human)</span><p class="glossary-desc">순수한 지구인만이 지구에서 살 권리가 있다고 주장하는 단체. <span class="highlight">Erosive Person</span>들조차 순수하지 않다며 차별한다.</p></div>
-                    <div class="glossary-item"><span class="glossary-term">무지 (無知)</span><p class="glossary-desc">지혜를 위해 수단을 가리지 않는 범죄 집단. 아카데미를 겨냥한 여러 차례의 테러를 일으켰다.</p></div>
-                    <div class="glossary-item"><span class="glossary-term">하르모니아 조약</span><p class="glossary-desc">2025. 02. 04 체결. 이계인도 지구인과 동등한 권리를 보장받을 자격이 있으며 차별을 금지한다는 내용을 담고 있으나, 현실적으로는 여전히 <span class="highlight">차별</span>이 실재하고 있다.</p></div>
-                    <div class="glossary-item" style="grid-column: span 2;">
-                        <span class="glossary-term">침식자 (Erosive Person)</span>
-                        <p class="glossary-desc">라비린토스 발생 당시 침식 현상으로 신체가 이형의 것으로 변화한 지구인들. 보통 인간보다 수명이 길며, 크리처나 오브젝트 헤드 등의 형상을 한 <span class="highlight">기이한 존재로 이계인과 같이 차별당하는 경우가 많다.</span></p>
-                    </div>
+                    <div class="glossary-item"><span class="glossary-term">침식 미궁 : 라비린토스</span><p class="glossary-desc">차원융합형 미궁. 개미굴 구조를 띠며 탐사 시 균열이 발견된다.</p></div>
+                    <div class="glossary-item"><span class="glossary-term">성좌 (Constellation)</span><p class="glossary-desc">지구인에게 힘을 빌려주는 신화, 전설 속 존재들. 세계의 의지의 요청을 받아 힘을 빌려준다.</p></div>
+                    <div class="glossary-item"><span class="glossary-term">시스템 (System)</span><p class="glossary-desc">지구인에게만 보이는 세계의 의지. 힘을 제대로 사용하도록 돕는 필터 역할을 수행한다.</p></div>
+                    <div class="glossary-item"><span class="glossary-term">이계화 (異界化)</span><p class="glossary-desc">게이트 에너지가 현실로 유출되어 환경을 변질시키는 현상.</p></div>
+                    <div class="glossary-item"><span class="glossary-term">퓨어 휴먼 (Pure Human)</span><p class="glossary-desc">순수한 지구인 우월주의 단체. Erosive Person을 차별한다.</p></div>
+                    <div class="glossary-item"><span class="glossary-term">무지 (無知)</span><p class="glossary-desc">지혜를 위해 수단을 가리지 않는 범죄 집단.</p></div>
+                    <div class="glossary-item"><span class="glossary-term">하르모니아 조약</span><p class="glossary-desc">이계인도 동등한 권리를 보장받을 자격이 있음을 명시했으나, 현실적으로는 여전히 차별이 실재하고 있다.</p></div>
+                    <div class="glossary-item" style="grid-column: span 2;"><span class="glossary-term">침식자 (Erosive Person)</span><p class="glossary-desc">신체가 이형으로 변화한 지구인. 수명이 길며 크리처나 오브젝트 헤드 등의 형상을 한 기이한 존재로 이계인과 같이 차별 당하는 경우가 많다.</p></div>
                 </div>
             </section>
 
             <section id="faction">
-                <div class="faction-grid">
-                    <div class="faction-card"><span class="faction-name">현대탐사학파</span><p class="faction-desc">시스템과 과학적 분석을 중시하며 최첨단 장비를 운용하는 학파.</p></div>
-                    <div class="faction-card"><span class="faction-name">동부탐사학파</span><p class="faction-desc">전통적인 무공과 기(氣)의 운용을 탐사에 접목한 학파.</p></div>
-                    <div class="faction-card"><span class="faction-name">서부탐사학파</span><p class="faction-desc">마법과 연금술, 고대 술식을 탐사의 핵심으로 삼는 학파.</p></div>
+                <div class="faction-container">
+                    <div class="faction-block"><span class="faction-header">아스포델 (Asphodel)</span><ul class="dept-list"><li class="dept-item">상세 학과 준비 중</li><li class="dept-item">상세 학과 준비 중</li></ul></div>
+                    <div class="faction-block"><span class="faction-header">홍영 (紅英)</span><ul class="dept-list"><li class="dept-item">주술학과</li><li class="dept-item">선술학과</li><li class="dept-item">무술학과</li><li class="dept-item">연단학과</li><li class="dept-item">야금학과</li><li class="dept-item">신비학과</li></ul></div>
+                    <div class="faction-block"><span class="faction-header">가이드라인 (Guideline)</span><ul class="dept-list"><li class="dept-item">현대오컬트학과</li><li class="dept-item">천문관측학과</li><li class="dept-item">육체단련학과</li><li class="dept-item">이능공학과</li><li class="dept-item">이계정보분석학과</li><li class="dept-item">이능단련학과</li></ul></div>
                 </div>
             </section>
         </main>
