@@ -27,17 +27,27 @@
             line-height: 1.8; word-break: keep-all;
         }
 
-        /* [2. 인트로 및 컨테이너] */
+        /* [2. 인트로 오버레이 - 정중앙 정렬 수정] */
         #intro-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #0c0b0a; z-index: 3000;
+            /* Flexbox를 사용하여 내부 요소를 가로/세로 정중앙 배치 */
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: all 1.2s cubic-bezier(0.65, 0, 0.35, 1); cursor: pointer;
         }
         #intro-overlay.fade-out { opacity: 0; visibility: hidden; }
-        .seal-button img { width: 130px; filter: sepia(0.3) brightness(0.9); animation: pulse 2.5s infinite; }
+
+        /* 인장 이미지와 텍스트를 감싸는 컨테이너 */
+        .seal-button {
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+        }
+        .seal-button img { width: 130px; filter: sepia(0.3) brightness(0.9); animation: pulse 2.5s infinite; margin-bottom: 25px; }
+        .seal-text { color:#8e7a56; letter-spacing: 10px; font-weight: bold; font-family: var(--font-title); margin: 0; }
+
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.03); opacity: 1; } }
 
+        /* [3. 메인 컨테이너] */
         #container {
             width: 900px; margin: 60px 0; background-color: #fcfaf5; 
             border: 1px solid #c9ba9d; padding: 70px 60px; box-sizing: border-box; 
@@ -54,7 +64,7 @@
         nav a { color: #8e7a56; text-decoration: none; font-size: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; padding: 5px 12px; }
         nav a:hover, nav a.active { color: #1a1714; border-bottom: 4px solid var(--point-color); }
 
-        /* [3. 섹션 스타일] */
+        /* [4. 섹션 스타일] */
         section { display: none; animation: fadeIn 0.8s forwards; }
         section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -77,7 +87,7 @@
         .theme-hongyeong .block-header { border-bottom-color: var(--color-hongyeong) !important; color: var(--color-hongyeong) !important; }
         .theme-hongyeong .dept-card { background-color: var(--color-hongyeong) !important; }
 
-        /* [4. 기능적 요소: 툴팁/테이블/타임라인] */
+        /* [5. 기능적 요소: 툴팁/테이블/타임라인] */
         .dept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; list-style: none; padding: 0; }
         .dept-card { font-size: 17px; padding: 18px; color: #fff; font-weight: 800; border-radius: 4px; text-align: center; cursor: help; position: relative; transition: 0.3s; }
         .tooltip { visibility: hidden; position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%); width: 280px; background-color: #1a1714; color: #fff; padding: 18px; border-radius: 6px; z-index: 100; opacity: 0; transition: 0.3s; font-size: 15px; font-weight: 500; border: 1px solid #fff; pointer-events: none; }
@@ -99,7 +109,6 @@
         .glossary-term { font-size: 20px; color: var(--point-color); margin-bottom: 12px; border-bottom: 2px solid rgba(142, 90, 49, 0.3); padding-bottom: 8px; }
 
         footer { margin-top: 100px; text-align: center; font-size: 13px; font-weight: 900; color: #8e7a56; letter-spacing: 5px; padding-bottom: 40px; }
-        .highlight { color: var(--point-color); font-weight: 900; }
     </style>
 </head>
 <body onclick="if(!this.classList.contains('entered')) enterAcademy()">
@@ -107,7 +116,7 @@
     <div id="intro-overlay">
         <div class="seal-button">
             <img src="https://cdn-icons-png.flaticon.com/512/3522/3522192.png" alt="Seal">
-            <p style="color:#8e7a56; letter-spacing: 10px; margin-top: 30px; font-weight: bold; font-family: var(--font-title);">CLICK TO UNSEAL</p>
+            <p class="seal-text">CLICK TO UNSEAL</p>
         </div>
     </div>
 
@@ -148,40 +157,30 @@
     </div>
 
     <script>
-        // [Data: 16 Core History]
+        // [Data: History/Realms/Ranks/Glossary/Factions] (동일하게 유지)
         const historyData = [
-            { date: "2024. 12. 24", title: "첫 게이트 발생", content: "중국의 사천 지방에서 작은 게이트 발생, 방치되다가 공안에 의해 발견되어 연구를 시작하게 되었다." },
-            { date: "2024. 12. 31", title: "첫 게이트 브레이크 - 이계화 발생", content: "방치되어 과부하된 게이트가 브레이크를 일으키며 사천 지방을 이계화(異界化) 시키기 시작하였다. 피난 온 이계인들과의 소통 실패로 1차 침식 대전이 발발하였다." },
-            { date: "2025. 01. 04", title: "1차 침식 대전 - 중국의 몰락", content: "이능과 무공을 가진 이계인들의 반격에 현대 무기는 무력화되었다. 사태가 커져가던 중 베이징에 운석이 박히면서 중국은 몰락의 길을 걷게 되었다." },
-            { date: "2025. 01. 11", title: "시스템, 성좌 그리고 헌터의 등장", content: "기이한 존재 [성좌]와 [시스템]의 선택을 받은 헌터들이 등장하며 인류는 이계인과 대등한 위치로 올라왔다." },
-            { date: "2025. 01. 24", title: "'이계침식' 라비린토스", content: "방치된 게이트들이 동시에 브레이크를 일으키며 중국 땅은 수많은 차원이 뒤섞인 미궁으로 변모했다. 헌터와 일반인 모두 존재가 오염되어 인간도 이계인도 아닌 무언가로 변해버렸다." },
-            { date: "2025. 01. 25", title: "1차 침식 대전 휴전 - '하르모니아 연맹' 결성", content: "공멸의 위기를 깨달은 양쪽 진영은 휴전을 선언하고 일시적으로 동맹을 맺으며 하르모니아 연맹이 탄생했다." },
-            { date: "2025. 01. 27", title: "연맹 출전 - 완전한 공략 실패", content: "라비린토스 미궁에 발을 옮겼으나 완전 공략은 불가능했다. 하지만 봉인 술식을 통해 침식을 중국 지하로 한정하는 데 성공했다." },
-            { date: "2025. 02. 04", title: "종전 및 하르모니아 조약", content: "관리를 위해 인류와 이계인이 손을 맞잡았다. 서로의 공존을 약속하며 '하르모니아 조약'이 체결되었다." },
+            { date: "2024. 12. 24", title: "첫 게이트 발생", content: "중국의 사천 지방에서 작은 게이트 발생, 해당 게이트는 발생한 이후 무지했던 이들에 의해서 방치되다가 공안에 의해 발견되어 연구를 시작하게 되었다." },
+            { date: "2024. 12. 31", title: "첫 게이트 브레이크 - 이계화 발생", content: "방치되어 과부하가 시작된 게이트가 게이트 브레이크 현상이 일어나며 사천 지방을 침식하면서 이계화(異界化) 시키기 시작하였다. 그와 동시에 멸망해가던 해당 차원에 있던 주민들이 이 곳으로 피난을 오게 되었고 그들은 소통을 하고자 시도했지만 갑작스럽게 벌어진 일에 중국 측은 이들을 원인으로 판단하여 공격을 개시하며 1차 침식 대전의 시작을 알렸다." },
+            { date: "2025. 01. 04", title: "1차 침식 대전 - 중국의 몰락", content: "이능과 무공을 가진 이계인들의 반격에 현대 무기는 무력화되었다. 결국 어느 이계인이 가볍게 손짓하자 베이징에 운석이 박히면서 중국은 몰락의 길을 걷게 되었다." },
+            { date: "2025. 01. 11", title: "시스템, 성좌 그리고 헌터의 등장", content: "UN군조차 대응하지 못하던 도중, 민간인들 중 몇몇이 [성좌]의 선택을 받으며 헌터로서 등장했다. [시스템]의 선택을 받은 소수의 인간들이 전투에 참여하며 인류는 이계인과 대등한 위치로 올라왔다." },
+            { date: "2025. 01. 24", title: "'이계침식' 라비린토스", content: "에너지의 충돌과 게이트들이 동시에 브레이크를 일으키며 중국 땅은 수많은 차원이 뒤섞인 미궁으로 변모했다. 헌터와 일반인 모두 존재가 오염되어 인간도 이계인도 아닌 무언가로 변해버렸다." },
+            { date: "2025. 01. 25", title: "1차 침식 대전 휴전 - '하르모니아 연맹' 결성", content: "공멸의 위기를 깨달은 양쪽 진영은 휴전을 선언하고, 뒤섞인 게이트들을 해결하기 위해 일시적으로 동맹을 맺으며 하르모니아 연맹이 탄생했다." },
+            { date: "2025. 01. 27", title: "연맹 출전 - 완전한 공략 실패", content: "지하미궁 라비린토스에 발을 옮겼으나 완전 공략은 불가능했다. 하지만 봉인 술식을 통해 침식을 중국 지하로 한정하는 데 성공했다." },
+            { date: "2025. 02. 04", title: "종전 및 하르모니아 조약", content: "라비린토스 관리를 위해 인류와 이계인이 손을 맞잡았다. 서로의 공존을 약속하며 '하르모니아 조약'이 체결되었다." },
             { date: "2025. 02. 15", title: "이계인들의 거주지구 결정", content: "옛 중국 영토 중 영향이 적은 곳을 거주지구로 결정하였고, 이계인들이 정착하게 되었다." },
             { date: "2025. 02. 18", title: "학원도시 하르모니아 공사 시작", content: "제2의 재앙을 대비하여 공중섬 형태의 학원도시 개발 및 공사를 시작했다." },
             { date: "2034. 12. 24", title: "학원도시 하르모니아 개방", content: "중국 상공에 완공된 거대 학원도시 개방. 헌터들과 이계인들이 머물며 성장하고 라비린토스를 조사하는 거점이 되었다." },
             { date: "2035. 01. 01", title: "탑승기 '아리아드네' 완성", content: "라비린토스 내부에 안전하게 진입하기 위한 전용 탑승기 '아리아드네'가 완성되었다." },
             { date: "2037. 01. 05", title: "관측기 '아르고스' 완성", content: "균열을 빠르게 포착할 수 있는 관측기 '아르고스'가 구축되었다." },
-            { date: "2077. 07. 07", title: "하르모니아 테러 발생", content: "순수주의자 집단 '퓨어 휴먼'과 이계인 집단 '무지'의 테러 시도가 있었으나 이사장에 의해 진압되었다." },
-            { date: "2083. 05. 04", title: "2차 테러 및 아르고스 탈취 시도", content: "'무지'의 테러와 탈취 시도가 있었으나 이번에도 이사장의 도움으로 방어에 성공했다." },
+            { date: "2077. 07. 07", title: "하르모니아 테러 발생", content: "순수주의자 집단 '퓨어 휴먼'과 이계인 집단 '무지'의 테러 시도가 있었으나 이사장에 의해 제압 및 처형당했다." },
+            { date: "2083. 05. 04", title: "2차 테러 및 아르고스 탈취 시도", content: "'무지'의 테러와 탈취 위기가 있었으나 이번에도 이사장의 도움으로 방어에 성공했다." },
             { date: "2127. 04. 01", title: "NOW : 현재", content: "하르모니아 아카데미는 인류 최전방에서 여전히 차원의 경계를 지키고 있습니다." }
         ];
 
-        // [Data: Realms - 홍영 상세 설정 반영]
         const realmsData = [
-            {
-                name: "Earth (지구)", theme: "theme-guideline",
-                content: "원래의 인류가 살아가던 터전. 2024년 게이트 발생 이후 [시스템]과 [성좌]라는 초월적 간섭이 일상화된 세계입니다. 현대 과학과 신비가 공존하며, 헌터들이 인류의 새로운 방패로 서 있습니다."
-            },
-            {
-                name: "Asphodel (아스포델)", theme: "theme-asphodel",
-                content: "푸른색의 아스포델. 19세기 서구권과 유사한 삶과 죽음이 뒤섞인 회색의 세계입니다. 이곳에서 죽음이란 소멸이 아닌 '제한 시간'이 생기는 것과 같습니다. 죽어도 죽지 않으며 혼으로서 존재가 유지되기에, 무아(無我)에 빠지지 않으려 타인의 혼을 탐하는 비극적인 순환이 이어집니다. 장의사들은 종교의 가르침으로 이들을 제압하고 강제로 무아로 되돌리는 역할을 수행합니다."
-            },
-            {
-                name: "Hong-Yeong (홍영/紅英)", theme: "theme-hongyeong",
-                content: "도술, 주술, 무공, 선술, 요술이 공존하는 세계. 조화를 이루며 평화롭게 사는 듯 보이나 실상은 서로를 물어뜯고 할퀴는 붉은빛의 **수라도(修羅道)**입니다. 황실, 무림, 선산이라는 3개 거대 세력이 오악(五岳)의 영토를 두고 날을 세우고 있습니다. 450년 전 무림의 '천마'가 당시 황제의 목을 베고 선산을 모독한 사건 이후, 세력 간의 혐오와 통제는 극에 달했습니다. 요괴와 영물조차 이들을 피해 다닐 정도로 살벌한 투쟁의 본능이 지배하는 세계입니다."
-            }
+            { name: "Earth (지구)", theme: "theme-guideline", content: "원래의 인류가 살아가던 터전. 2024년 게이트 발생 이후 [시스템]과 [성좌]라는 초월적 간섭이 일상화된 세계입니다. 현대 과학과 신비가 공존하며, 헌터들이 인류의 새로운 방패로 서 있습니다." },
+            { name: "Asphodel (아스포델)", theme: "theme-asphodel", content: "푸른색의 아스포델. 삶과 죽음이 뒤섞인 회색의 세계입니다. 죽음이 '제한 시간'과 같은 이곳에선, 소멸을 피하기 위해 타인의 혼을 탐하는 비극적인 순환이 이어집니다. 장의사들은 종교적 교리에 따라 이들을 제압하고 강제로 무아(無我)로 되돌립니다." },
+            { name: "Hong-Yeong (홍영/紅英)", theme: "theme-hongyeong", content: "도술과 무공이 근간을 이루는 동양적 신비의 세계. 평화로워 보이나 실상은 서로를 물어뜯고 할퀴는 강렬한 **수라도(修羅道)**입니다. 황실, 무림, 선산이라는 3개 거대 세력이 오악(五岳)을 두고 끝없이 투쟁하는 자부심 높은 세계입니다." }
         ];
 
         const rankData = [
@@ -198,6 +197,7 @@
             { term: "침식 미궁 : 라비린토스", desc: "차원융합형 미궁. 탐사 시 균열이 발견되는 개미굴 구조이다." },
             { term: "시스템 (System)", desc: "지구인에게만 보이는 세계의 의지. 힘의 필터 역할을 수행한다." },
             { term: "퓨어 휴먼 (Pure Human)", desc: "순수한 지구인만이 주인이라 주장하며 침식자와 이계인을 차별하고 배척하는 단체." },
+            { term: "하르모니아 조약", desc: "이계인도 평등한 권리를 가짐을 명시했으나, 현실적으로는 여전히 차별이 실재한다." },
             { term: "침식자 (Erosive Person)", desc: "이형으로 변화한 지구인. 수명이 길며 기이한 형상으로 인해 이계인과 같이 차별당하곤 한다." }
         ];
 
@@ -223,7 +223,7 @@
         const factionData = [
             { 
                 name: "Guide Line (가이드라인)", theme: "theme-guideline",
-                desc: "지구 소속의 시스템, 성좌의 시선 아래 놓인 헌터들의 파벌. 헌터들의 전투, 탐사, 제작 능력을 체계적으로 발전시키는 학파입니다.",
+                desc: "지구 소속의 시스템, 성좌의 시선 아래 놓인 헌터들의 파벌. 헌터들의 능력 전반을 체계적으로 발전시키는 학파입니다.",
                 depts: ["현대오컬트학과", "천문관측학과", "육체단련학과", "이능공학과", "이계정보분석학과", "이능단련학과"]
             },
             { 
@@ -233,11 +233,12 @@
             },
             { 
                 name: "Hong-Yeong (홍영/紅英)", theme: "theme-hongyeong",
-                desc: "수라도의 본능을 가진 공격적 학파. 도술과 무공 등 동양의 신비를 다루며, 나른한 맹수와 같은 위험한 여유를 즐깁니다.",
+                desc: "수라도의 본능을 가진 공격적 학파. 도술과 무공 등 동양의 신비를 다루며, 위험한 여유를 즐깁니다.",
                 depts: ["주술학과", "선술학과", "무술학과", "연단학과", "야금학과", "신비학과"]
             }
         ];
 
+        // [Execution]
         function renderAll() {
             const realmsContent = document.getElementById('realms-content');
             realmsData.forEach(r => { realmsContent.innerHTML += `<div class="info-block ${r.theme}"><span class="block-header">${r.name}</span><p class="block-detail">${r.content}</p></div>`; });
