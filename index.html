@@ -12,9 +12,10 @@
             --font-main: 'Pretendard', sans-serif;
             --font-title: 'Black Han Sans', sans-serif;
             --point-color: #8e5a31;
-            --color-guideline: #1e4a9e; /* 지구 파랑 */
-            --color-asphodel: #2d6a4f;  /* 아스포델 녹색 */
-            --color-hongyeong: #a51c1c; /* 홍영 빨강 */
+            --color-guideline: #1e4a9e;
+            --color-asphodel: #2d6a4f;
+            --color-hongyeong: #a51c1c;
+            --color-center: #3d3d3d; /* 중앙 구역 상징색: 은빛 도는 검정 */
         }
 
         body { 
@@ -39,7 +40,7 @@
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.03); opacity: 1; } }
 
         #container {
-            width: 900px; margin: 60px 0; background-color: #fcfaf5; 
+            width: 950px; margin: 60px 0; background-color: #fcfaf5; 
             border: 1px solid #c9ba9d; padding: 70px 60px; box-sizing: border-box; 
             box-shadow: 0 30px 80px rgba(0,0,0,0.8); position: relative;
             opacity: 0; transform: translateY(20px); transition: 1.5s ease-out;
@@ -50,11 +51,11 @@
         .main-logo { font-family: 'Great Vibes', cursive; font-size: 85px; margin: 0; color: #4a3b26; }
         .sub-title { font-size: 14px; letter-spacing: 12px; color: #7a664d; font-weight: 900; text-transform: uppercase; }
 
-        nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 60px; border-bottom: 2px solid rgba(142, 90, 49, 0.2); padding-bottom: 20px; }
-        nav a { color: #8e7a56; text-decoration: none; font-size: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; padding: 5px 12px; }
+        nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 60px; border-bottom: 2px solid rgba(142, 90, 49, 0.2); padding-bottom: 20px; }
+        nav a { color: #8e7a56; text-decoration: none; font-size: 15px; font-weight: 900; cursor: pointer; transition: 0.3s; padding: 5px 10px; }
         nav a:hover, nav a.active { color: #1a1714; border-bottom: 4px solid var(--point-color); }
 
-        /* [3. 섹션 스타일] */
+        /* [3. 섹션 공통 스타일] */
         section { display: none; animation: fadeIn 0.8s forwards; }
         section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -64,39 +65,31 @@
         .block-header { font-size: 34px; margin-bottom: 30px; text-align: center; border-bottom: 3px double #ccc; padding-bottom: 15px; }
         .block-detail { font-size: 17.5px; font-weight: 600; line-height: 2.2; text-align: justify; color: #332d26; }
 
+        /* 구역 상세 레이아웃 */
+        .district-grid { display: flex; flex-direction: column; gap: 30px; margin-top: 40px; }
+        .district-card { background: #fff; border: 1px solid #e0d7c6; border-left: 8px solid var(--point-color); padding: 35px; border-radius: 4px; }
+        .district-card h4 { font-family: var(--font-title); font-size: 24px; margin-top: 0; color: #1a1714; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; }
+        .district-tag { font-size: 13px; background: #f0ede6; padding: 4px 12px; border-radius: 20px; color: #7a664d; font-weight: 800; }
+
         /* 테마 컬러 적용 */
-        .theme-guideline { border-top-color: var(--color-guideline) !important; }
-        .theme-guideline .block-header { border-bottom-color: var(--color-guideline) !important; color: var(--color-guideline) !important; }
-        .theme-guideline .dept-card { background-color: var(--color-guideline) !important; }
+        .theme-guideline.district-card { border-left-color: var(--color-guideline) !important; }
+        .theme-asphodel.district-card { border-left-color: var(--color-asphodel) !important; }
+        .theme-hongyeong.district-card { border-left-color: var(--color-hongyeong) !important; }
+        .theme-center.district-card { border-left-color: var(--color-center) !important; }
 
-        .theme-asphodel { border-top-color: var(--color-asphodel) !important; }
-        .theme-asphodel .block-header { border-bottom-color: var(--color-asphodel) !important; color: var(--color-asphodel) !important; }
-        .theme-asphodel .dept-card { background-color: var(--color-asphodel) !important; }
-
-        .theme-hongyeong { border-top-color: var(--color-hongyeong) !important; }
-        .theme-hongyeong .block-header { border-bottom-color: var(--color-hongyeong) !important; color: var(--color-hongyeong) !important; }
-        .theme-hongyeong .dept-card { background-color: var(--color-hongyeong) !important; }
-
-        /* [4. 인터랙티브 요소] */
-        .dept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; list-style: none; padding: 0; }
-        .dept-card { font-size: 17px; padding: 18px; color: #fff; font-weight: 800; border-radius: 4px; text-align: center; cursor: help; position: relative; transition: 0.3s; }
-        .tooltip { visibility: hidden; position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%); width: 280px; background-color: #1a1714; color: #fff; padding: 18px; border-radius: 6px; z-index: 100; opacity: 0; transition: 0.3s; font-size: 15px; font-weight: 500; border: 1px solid #fff; pointer-events: none; }
-        .dept-card:hover .tooltip { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(-10px); }
-
+        /* [4. 테이블/타임라인/툴팁] */
         .rank-table { width: 100%; border-collapse: collapse; margin-top: 30px; font-weight: 600; }
         .rank-table td, .rank-table th { padding: 18px; border-bottom: 1px solid rgba(142, 90, 49, 0.2); }
         .rank-label { font-family: var(--font-title); font-size: 26px; text-align: center; width: 90px; color: #8e5a31; }
-        .rank-s { color: #a67c00; font-weight: bold; text-shadow: 0 0 5px rgba(184, 134, 11, 0.2); }
-
+        .rank-s { color: #a67c00; text-shadow: 0 0 5px rgba(184, 134, 11, 0.2); }
         .timeline { position: relative; padding-left: 45px; border-left: 5px solid #d4c5a9; margin-left: 15px; }
         .event { position: relative; margin-bottom: 65px; }
         .event::before { content: ''; position: absolute; width: 22px; height: 22px; background: var(--point-color); border: 4px solid #fcfaf5; border-radius: 50%; left: -61.5px; top: 6px; z-index: 10; }
         .event-date { font-weight: 900; color: var(--point-color); font-size: 20px; display: block; margin-bottom: 10px; font-family: 'Playfair Display SC', serif; }
-        .event-title { font-size: 24px; color: #1a1714; display: block; margin-bottom: 15px; }
-
-        .glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        .glossary-item { background: rgba(142, 122, 86, 0.08); padding: 30px; border: 1px solid rgba(212, 197, 169, 0.6); }
-        .glossary-term { font-size: 20px; color: var(--point-color); margin-bottom: 12px; border-bottom: 2px solid rgba(142, 90, 49, 0.3); padding-bottom: 8px; }
+        .dept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; list-style: none; padding: 0; }
+        .dept-card { font-size: 17px; padding: 18px; color: #fff; font-weight: 800; border-radius: 4px; text-align: center; cursor: help; position: relative; transition: 0.3s; }
+        .tooltip { visibility: hidden; position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%); width: 280px; background-color: #1a1714; color: #fff; padding: 18px; border-radius: 6px; z-index: 100; opacity: 0; transition: 0.3s; font-size: 15px; font-weight: 500; border: 1px solid #fff; pointer-events: none; }
+        .dept-card:hover .tooltip { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(-10px); }
 
         footer { margin-top: 100px; text-align: center; font-size: 13px; font-weight: 900; color: #8e7a56; letter-spacing: 5px; padding-bottom: 40px; }
         .highlight { color: var(--point-color); font-weight: 900; }
@@ -134,9 +127,24 @@
             <section id="realms"><div id="realms-content"></div></section>
 
             <section id="academy">
-                <h3 style="color: #4a3b26; border-bottom: 2px solid #d4c5a9; padding-bottom: 12px; margin-bottom: 35px; font-size: 30px;">Explorer Rank System</h3>
+                <div class="info-block" style="border-top-color: var(--point-color);">
+                    <span class="block-header" style="color: var(--point-color); border-bottom-color: var(--point-color);">City Overview</span>
+                    <p class="block-detail">
+                        중국 베이징을 중심으로 뚫려 있는 반경 450km²에 달하는 거대한 구멍, **라비린토스**와 그 위에 떠 있는 천공섬 **하르모니아**입니다.
+                        천공섬을 중심으로 세워진 학원도시 하르모니아는 라비린토스의 격리와 출입을 철저히 통제하고 있으며, 라비린토스의 완전한 종결을 위해 정예 탐사자 육성에 힘쓰고 있습니다.
+                    </p>
+                    <p class="block-detail" style="background: rgba(142, 90, 49, 0.05); padding: 25px; border-radius: 5px; margin-top: 20px;">
+                        <strong>침식의 공포와 신비로운 힘:</strong><br>
+                        라비린토스에 닿는 순간부터 더는 평범한 사람으로 살아갈 수 없게 됩니다. 신원은 하르모니아에 귀속되며 외부 활동은 통제되지만, 그 대가로 초능력과 같은 신비로운 힘과 이계의 자원을 얻게 됩니다.
+                    </p>
+                    
+                    <h3 style="margin-top: 60px; font-size: 26px; border-bottom: 2px solid #d4c5a9; padding-bottom: 10px;">천공성 하르모니아 4대 구역 정보</h3>
+                    <div class="district-grid" id="district-details">
+                        </div>
+                </div>
+
+                <h3 style="color: #4a3b26; border-bottom: 2px solid #d4c5a9; padding-bottom: 12px; margin-bottom: 35px; font-size: 30px; margin-top: 80px;">Explorer Rank System</h3>
                 <table class="rank-table"><tbody id="rank-body"></tbody></table>
-                <div style="margin-top: 50px; text-align: center; opacity: 0.6; font-weight: bold;">[ 아카데미 상세 운영 설정 업데이트 대기 중입니다 ]</div>
             </section>
 
             <section id="history"><div class="timeline" id="history-timeline"></div></section>
@@ -148,54 +156,63 @@
     </div>
 
     <script>
-        // [Data: History - 16개 핵심 사건 원문]
+        // [Data: History - 16개 핵심 사건]
         const historyData = [
             { date: "2024. 12. 24", title: "첫 게이트 발생", content: "중국의 사천 지방에서 작은 게이트가 발생했습니다. 해당 게이트는 발생한 이후 무지했던 이들에 의해서 방치되다가 공안에 의해 발견되어 연구를 시작하게 되었습니다." },
-            { date: "2024. 12. 31", title: "첫 게이트 브레이크 - 이계화 발생", content: "방치되어 과부하가 시작된 게이트가 게이트 브레이크 현상을 일으키며 사천 지방을 침식하고 이계화(異界化) 시키기 시작했습니다. 그와 동시에 멸망해가던 해당 차원에 있던 주민들이 이곳으로 피난을 오게 되었고, 소통을 시도했지만 갑작스럽게 벌어진 일에 중국 측은 이들을 원인으로 판단하여 공격을 개시하며 1차 침식 대전의 시작을 알렸습니다." },
-            { date: "2025. 01. 04", title: "1차 침식 대전 - 중국의 몰락", content: "평화를 주장하던 이계인들의 반격으로 현대 무기는 너무나 쉽게 무력화되었습니다. 이계인들이 지구 전역으로 진격을 시작하자 사태는 커져갔으며, 결국 어느 이계인의 손짓에 베이징에 운석이 박히면서 중국은 몰락의 길을 걷게 되었습니다." },
-            { date: "2025. 01. 11", title: "시스템, 성좌 그리고 헌터의 등장", content: "UN군조차 제대로 된 대응을 하지 못하던 도중, 민간인들 중 몇몇이 기이한 존재 [성좌]의 선택을 받으며 이계인들의 앞을 막아섰습니다. 소수의 인간들이 [시스템]의 선택을 받으면서 전투는 대등한 위치로 올라오게 되었습니다." },
-            { date: "2025. 01. 24", title: "'이계침식' 라비린토스", content: "에너지의 충돌과 게이트들이 동시에 브레이크를 일으키며 재앙이 벌어졌습니다. 중국 땅은 수많은 차원들이 뒤섞이며 급격한 침식을 일으켰고, 헌터와 일반인 모두 존재가 오염되어 인간도 이계인도 아닌 무언가로 변해버리는 비극이 시작되었습니다." },
-            { date: "2025. 01. 25", title: "1차 침식 대전 휴전 - '하르모니아 연맹' 결성", content: "공멸의 위기를 깨달은 양쪽 진영은 휴전을 선언하고, 뒤섞인 게이트들을 해결하기 위해 일시적으로 동맹을 맺으며 '하르모니아 연맹'이 탄생하게 되었습니다." },
-            { date: "2025. 01. 27", title: "연맹 출전 - 완전한 공략 실패", content: "라비린토스 지하미궁으로 스스로 발걸음을 옮겼으나 완전 공략은 불가능했습니다. 그래도 안정화에 성공하여 봉인 술식을 펼쳐 해당 침식과 게이트를 중국 지하로 한정하는 데 성공했으며, 중국이라는 거대한 국가는 그렇게 사라지게 되었습니다." },
-            { date: "2025. 02. 04", title: "종전 및 하르모니아 조약", content: "라비린토스 관리를 위해 인류와 이계인이 손을 맞잡았습니다. 서로 공존하기 위해 협력하기로 약속하며, 영웅들을 기리기 위해 '하르모니아 조약'이라는 이름이 붙여졌다." },
-            { date: "2025. 02. 15", title: "이계인들의 거주지구 결정", content: "이계인들의 제안을 받아 그들의 거주지구를 한때 중국이었던 토지로 결정하였고, 그들은 라비린토스 영향이 가장 적은 곳에 거점을 만들며 정착하게 되었습니다." },
-            { date: "2025. 02. 18", title: "학원도시 하르모니아 공사 시작", content: "제2의 라비린토스 발생을 대비하여 인류와 이계인은 공중섬 형태의 학원도시 개발 및 공사를 시작했습니다." },
-            { date: "2034. 12. 24", title: "학원도시 하르모니아 개방", content: "중국 상공에 완공된 거대 학원도시가 개방되었습니다. 헌터들과 이계인들이 머물며 성장하고 라비린토스를 조사하는 거점으로서 활동을 시작하게 되었습니다." },
+            { date: "2024. 12. 31", title: "첫 게이트 브레이크 - 이계화 발생", content: "방치되어 과부하가 시작된 게이트가 게이트 브레이크 현상을 일으키며 사천 지방을 침식하고 이계화(異界化) 시키기 시작했습니다. 그와 동시에 멸망해가던 해당 차원의 주민들이 이곳으로 피난을 오게 되었고, 소통 실패로 1차 침식 대전이 발발하였습니다." },
+            { date: "2025. 01. 04", title: "1차 침식 대전 - 중국의 몰락", content: "이능과 무공을 가진 이계인들의 반격으로 현대 무기는 무력화되었습니다. 결국 어느 이계인의 손짓에 베이징에 운석이 박히면서 중국은 몰락의 길을 걷게 되었습니다." },
+            { date: "2025. 01. 11", title: "시스템, 성좌 그리고 헌터의 등장", content: "기이한 존재 [성좌]와 [시스템]의 선택을 받은 헌터들이 등장하며 인류는 이계인과 대등한 위치로 올라오게 되었습니다." },
+            { date: "2025. 01. 24", title: "'이계침식' 라비린토스", content: "에너지의 충돌과 게이트들의 동시 브레이크로 중국 땅은 수많은 차원이 뒤섞인 미궁으로 변모했습니다. 존재가 오염되어 인간도 이계인도 아닌 무언가로 변해버리는 비극이 시작되었습니다." },
+            { date: "2025. 01. 25", title: "1차 침식 대전 휴전 - '하르모니아 연맹' 결성", content: "공멸의 위기를 깨달은 양쪽 진영은 휴전을 선언하고, 일시적으로 동맹을 맺으며 '하르모니아 연맹'이 탄생하게 되었습니다." },
+            { date: "2025. 01. 27", title: "연맹 출전 - 완전한 공략 실패", content: "라비린토스 미궁으로 스스로 발걸음을 옮겼으나 완전 공략은 불가능했습니다. 그래도 안정화에 성공하여 봉인 술식을 펼쳐 해당 침식과 게이트를 중국 지하로 한정하는 데 성공했습니다." },
+            { date: "2025. 02. 04", title: "종전 및 하르모니아 조약", content: "라비린토스 관리를 위해 인류와 이계인이 손을 맞잡았습니다. 서로 공존하기 위해 협력하기로 약속하며 '하르모니아 조약'이 체결되었습니다." },
+            { date: "2025. 02. 15", title: "이계인 거주지구 결정", content: "한때 중국이었던 토지를 거주지구로 결정하였고, 이계인들이 정착하게 되었습니다." },
+            { date: "2025. 02. 18", title: "학원도시 하르모니아 공사 시작", content: "제2의 재앙을 대비하여 인류와 이계인은 공중섬 형태의 학원도시 개발 및 공사를 시작했습니다." },
+            { date: "2034. 12. 24", title: "학원도시 하르모니아 개방", content: "중국 상공에 완공된 거대 학원도시가 개방되었습니다. 헌터들과 이계인들이 머물며 성장하고 라비린토스를 조사하는 거점이 되었습니다." },
             { date: "2035. 01. 01", title: "탑승기 '아리아드네' 완성", content: "이계인들과 지구인들은 힘을 합쳐 라비린토스 내부에 안전하게 진입할 수 있는 전용 탑승기 '아리아드네'를 완성하는 데 성공했습니다." },
-            { date: "2037. 01. 05", title: "관측기 '아르고스' 완성", content: "라비린토스 안의 균열을 빠르게 포착할 수 있는 관측기 '아르고스'를 구축하는 데 성공했습니다." },
-            { date: "2077. 07. 07", title: "하르모니아 테러 발생", content: "순수주의자 집단 '퓨어 휴먼'과 이계인 집단 '무지'의 테러 시도가 있었으나, 이사장에 의해 주동자들이 처형당하며 진압되었습니다." },
-            { date: "2083. 05. 04", title: "2차 테러 및 탈취 시도", content: "'무지'의 테러로 아르고스를 탈취당할 뻔한 위기가 있었으나, 이번에도 이사장의 도움으로 방어에 성공했습니다." },
+            { date: "2037. 01. 05", title: "관측기 '아르고스' 완성", content: "균열을 빠르게 포착할 수 있는 관측기 '아르고스'를 구축하는 데 성공했습니다." },
+            { date: "2077. 07. 07", title: "하르모니아 테러 발생", content: "순수주의자 집단 '퓨어 휴먼'과 이계인 집단 '무지'의 테러 시도가 있었으나, 이사장에 의해 제압 및 처형당하며 진압되었습니다." },
+            { date: "2083. 05. 04", title: "2차 테러 및 아르고스 탈취 시도", content: "'무지'의 테러로 아르고스를 탈취당할 뻔했으나 이번에도 이사장의 도움으로 방어에 성공했습니다." },
             { date: "2127. 04. 01", title: "NOW : 현재", content: "하르모니아 아카데미는 인류 최전방에서 여전히 차원의 경계를 지키는 거대한 방패로 존재하고 있습니다." }
         ];
 
         // [Data: Realms - 세계관 서사]
         const realmsData = [
-            {
-                name: "Earth (지구)", theme: "theme-guideline",
-                content: "원래의 인류가 살아가던 터전입니다. 2024년 게이트 발생 이후 [시스템]과 [성좌]라는 초월적 간섭이 일상화된 세계입니다. 현대 과학과 신비가 공존하며, 헌터들이 인류의 새로운 방패로 서 있습니다."
-            },
-            {
-                name: "Asphodel (아스포델)", theme: "theme-asphodel",
-                content: "푸른색의 아스포델은 19세기 서구권과 유사한, 삶과 죽음이 뒤섞여 있는 회색의 세계입니다. 이곳에서 죽음이란 소멸이 아닌 '제한 시간'이 생기는 것과 같습니다. 죽어도 혼으로서, 망자로서 존재가 유지되기 때문입니다. 제압 중심의 의학과 장례 기반의 주술이 발달했으며, 시간이 지날수록 혼이 흐트러져 결국 움직임 없는 '무아(無我)'로 돌아가게 됩니다. 무아에서 도망치기 위해 타인의 혼을 탐하는 자들로 인해 혼란이 끊이지 않으며, 이들을 제압하여 강제로 무아로 되돌리는 장의사들이 존재합니다."
-            },
-            {
-                name: "Hong-Yeong (홍영/紅英)", theme: "theme-hongyeong",
-                content: "도술, 주술, 무공, 선술, 요술이 공존하는 세계입니다. 조화를 이루며 평화롭게 사는 듯 보이나, 실상은 서로를 물어뜯고 할퀴는 붉은빛의 수라도(修羅道)와 같습니다. 황실, 무림, 선산이라는 3개 거대 세력이 오악(五岳)의 영토를 두고 날을 세우고 있습니다. 450년 전 무림의 '천마'가 당시 황제의 목을 베고 선산을 모독한 사건 이후, 세력 간의 혐오와 통제는 극에 달했습니다. 요괴와 영물조차 이들을 피해 다닐 정도로 살벌한 투쟁의 본능이 지배하는 세계입니다."
-            }
+            { name: "Earth (지구)", theme: "theme-guideline", content: "원래의 인류가 살아가던 터전입니다. 2024년 게이트 발생 이후 [시스템]과 [성좌]라는 초월적 간섭이 일상화된 세계입니다. 현대 과학과 신비가 공존하며, 헌터들이 인류의 새로운 방패로 서 있습니다." },
+            { name: "Asphodel (아스포델)", theme: "theme-asphodel", content: "푸른색의 아스포델은 19세기 서구권과 유사한 회색의 세계입니다. 이곳에서 죽음이란 소멸이 아닌 '제한 시간'이 생기는 것과 같습니다. 죽어도 혼으로서 존재가 유지되기에 무아(無我)에 빠지지 않으려 타인의 혼을 탐하는 비극적인 순환이 이어집니다." },
+            { name: "Hong-Yeong (홍영/紅英)", theme: "theme-hongyeong", content: "도술, 주술, 무공, 선술, 요술이 공존하는 세계입니다. 조화를 이루며 평화롭게 사는 듯 보이나 실상은 서로를 물어뜯고 할퀴는 붉은빛의 수라도(修羅道)와 같습니다. 세 세력이 명분을 걸고 대립하는 투쟁의 세계입니다." }
         ];
 
-        // [Data: Glossary - 조율협회 포함 10종 완벽 복구]
+        // [Data: Districts - 중앙 아카데미 상세 설정 반영]
+        const districtsData = [
+            {
+                name: "중앙 구역 (Center): 하르모니아 아카데미",
+                theme: "theme-center",
+                tag: "Academy Core & Ariadne",
+                content: "천공섬 하르모니아의 중심이자 홍영, 가이드라인, 아스포델 3개 세력이 만나는 심장부입니다. 별이 쏟아지는 밤하늘을 연상시키는 은빛 흑색 성채로 이루어져 있습니다. 이곳은 라비린토스 직통 탑승기 [아리아드네]와 차원 균열 관측구 [아르고스]를 보관하고 있어 극도로 철저한 보안 시스템이 가동되고 있습니다. 교육기관임과 동시에 조율협회와 지구 세력의 끊임없는 견제를 받는 전략적 요충지이기도 합니다. 학파별 특색에 따라 현대식, 동양식, 중세식 건물이 공존하며, 청춘의 경쟁이 펼쳐지는 훈련장 이면에는 사망한 학생들을 위한 장례식장의 울음소리가 공존하는 장소입니다. 전문 병원과 거대 도서관, 기숙사를 갖추고 있으며 졸업한 헌터들도 [아리아드네] 이용을 위해 자주 방문합니다."
+            },
+            {
+                name: "남서쪽 구역 (South West): 아스포델 거주 지구",
+                theme: "theme-asphodel",
+                tag: "Gothic & Mist",
+                content: "음침한 숲과 19세기 중후반 서구 제국주의 양식의 건물이 늘어선 아스포델 관련인들의 거주 구역입니다. 1년 내내 스산한 안개가 자욱하며 가스등이 흐릿하게 도로를 비춥니다. 이곳의 건물들은 개인의 주거보다 공용 주거와 상업에 특화되어 찍어낸 듯한 양산형 패턴을 보입니다. 주로 무아(無我)의 혼을 활용한 마법 용품이나 식량 등을 판매하며, 아파트나 호텔 형식의 주거 공간이 주를 이룹니다."
+            },
+            { name: "북쪽 구역 (North): 가이드라인 거주 지구", theme: "theme-guideline", tag: "Modern & Tech", content: "기록 업데이트 대기 중입니다..." },
+            { name: "남동쪽 구역 (South East): 홍영 거주 지구", theme: "theme-hongyeong", tag: "Oriental & Martial", content: "기록 업데이트 대기 중입니다..." }
+        ];
+
+        // [Data: Glossary]
         const glossaryData = [
-            { term: "침식 미궁 : 라비린토스", desc: "연속된 게이트 브레이크와 전쟁의 여파가 뒤섞여 만들어진 차원융합형 미궁입니다. 개미굴 구조를 띠며 탐사 시 균열이 발견됩니다." },
-            { term: "성좌 (Constellation)", desc: "지구인에게 힘을 빌려주는 존재들입니다. 세계의 의지의 요청을 받아 마음에 드는 인간에게 힘을 부여합니다." },
-            { term: "시스템 (System)", desc: "지구인에게만 보이는 세계의 의지입니다. 힘을 제대로 사용할 수 있도록 필터를 걸어 기초부터 가르치는 역할을 수행합니다." },
-            { term: "이계화 (異界化)", desc: "게이트 에너지가 현실로 유출되어 환경을 변질시키는 현상입니다. 복구가 불가능한 상태가 되기도 합니다." },
-            { term: "게이트 브레이크 (Gate Break)", desc: "게이트가 장기간 방치될 때 발생하는 붕괴 현상입니다. 이계화와 함께 마수들이 쏟아져 나옵니다." },
+            { term: "침식 미궁 : 라비린토스", desc: "차원융합형 미궁입니다. 개미굴 구조를 띠며 탐사 시 균열이 발견됩니다." },
+            { term: "성좌 (Constellation)", desc: "지구인에게 힘을 빌려주는 존재들입니다. 세계의 의지의 요청을 받아 인간에게 힘을 부여합니다." },
+            { term: "시스템 (System)", desc: "지구인에게만 보이는 세계의 의지입니다. 힘을 제대로 사용하도록 돕는 필터 역할을 수행합니다." },
+            { term: "이계화 (異界化)", desc: "게이트 에너지가 현실로 유출되어 환경을 변질시키는 현상입니다." },
+            { term: "게이트 브레이크 (Gate Break)", desc: "게이트가 장기간 방치될 때 발생하는 붕괴 현상입니다." },
             { term: "퓨어 휴먼 (Pure Human)", desc: "순수한 지구인만이 주인이라 주장하며 침식자와 이계인을 차별하고 배척하는 단체입니다." },
-            { term: "무지 (無知)", desc: "지식과 진리를 위해 수단을 가리지 않는 범죄 집단입니다. 아카데미에 여러 차례 테러를 일으켰습니다." },
-            { term: "조율협회", desc: "하르모니아 아카데미의 설립과 함께 조직된 연맹입니다. 헌터와 이계인들의 외부 활동 지원 및 아카데미 자원 관리를 담당하며, 방송, 잡지, 신문 출연 일정 관리와 대중 여론 조율을 수행하는 기관입니다." },
-            { term: "하르모니아 조약", desc: "이계인도 동등한 권리를 보장받을 자격이 있음을 명시했으나, 현실적으로는 여전히 차별이 실재하는 조약입니다." },
-            { term: "침식자 (Erosive Person)", desc: "라비린토스 발생 당시 침식 현상으로 신체가 이형의 것으로 변화한 지구인입니다. 수명이 길며 기이한 형상으로 인해 이계인과 같이 차별당하곤 합니다." }
+            { term: "무지 (無知)", desc: "지식과 진리를 위해 수단을 가리지 않는 범죄 집단입니다." },
+            { term: "조율협회", desc: "헌터와 이계인의 외부 활동 지원 및 여론 조율을 담당하는 기관입니다." },
+            { term: "하르모니아 조약", desc: "이계인도 평등한 권리를 가짐을 명시했으나 여전히 차별이 실재하는 조약입니다." },
+            { term: "침식자 (Erosive Person)", desc: "침식 현상으로 신체가 이형으로 변화한 지구인입니다. 수명이 길며 차별당하는 경우가 많습니다." }
         ];
 
         const tooltipInfo = {
@@ -211,31 +228,24 @@
             "이능공학과": "이계 에너지를 도구에 결합하는 공학을 연구합니다.",
             "이계정보분석학과": "미궁 내부 데이터를 해독하고 탐사 전략을 수립합니다.",
             "이능단련학과": "고유 이능의 출력을 극대화하고 제어합니다.",
-            "선술학과": "천지의 기운을 다스려 도를 닦고 초월적인 선의 경지를 탐구합니다.",
+            "선술학과": "천지의 기운을 다스려 도를 닦고 경지를 탐구합니다.",
             "연단학과": "영약을 제조하여 신체를 강화하거나 치유합니다.",
             "야금학과": "영석과 이계 금속을 제련하여 신물을 제작합니다.",
             "신비학과": "선천적으로 타고난 이형의 힘이나 혈통적 신비를 제어합니다."
         };
 
         const factionData = [
-            { 
-                name: "Asphodel (아스포델)", theme: "theme-asphodel",
-                desc: "회색 세계의 기술을 다루는 학파입니다. 혼을 정화하고 정착시키며 적을 제압하는 장의사들의 기술을 계승합니다.",
-                depts: ["주술학과", "사령학과", "영매학과", "무술학과", "장례학과", "성물제작과"]
-            },
-            { 
-                name: "Guide Line (가이드라인)", theme: "theme-guideline",
-                desc: "시스템과 성좌의 시선 아래 놓인 헌터들의 파벌입니다. 전투와 탐사 능력을 체계적으로 발전시키기 위해 가르치는 학파입니다.",
-                depts: ["현대오컬트학과", "천문관측학과", "육체단련학과", "이능공학과", "이계정보분석학과", "이능단련학과"]
-            },
-            { 
-                name: "Hong-Yeong (홍영/紅英)", theme: "theme-hongyeong",
-                desc: "동양적 신비를 다루는 공격적 학파입니다. '배부른 맹수'와 같은 여유 속에 날카로운 통찰을 숨기고 있습니다.",
-                depts: ["주술학과", "선술학과", "무술학과", "연단학과", "야금학과", "신비학과"]
-            }
+            { name: "Asphodel (아스포델)", theme: "theme-asphodel", desc: "회색 세계의 기술을 다루는 학파입니다. 혼을 정화하고 적을 제압하는 장의사들의 기술을 계승합니다.", depts: ["주술학과", "사령학과", "영매학과", "무술학과", "장례학과", "성물제작과"] },
+            { name: "Guide Line (가이드라인)", theme: "theme-guideline", desc: "시스템과 성좌의 시선 아래 놓인 헌터들의 파벌입니다. 능력을 체계적으로 발전시킵니다.", depts: ["현대오컬트학과", "천문관측학과", "육체단련학과", "이능공학과", "이계정보분석학과", "이능단련학과"] },
+            { name: "Hong-Yeong (홍영/紅英)", theme: "theme-hongyeong", desc: "동양적 신비를 다루는 공격적 학파입니다. '배부른 맹수'와 같은 여유 속에 날카로운 통찰을 숨기고 있습니다.", depts: ["주술학과", "선술학과", "무술학과", "연단학과", "야금학과", "신비학과"] }
         ];
 
         function renderAll() {
+            const districtDetails = document.getElementById('district-details');
+            districtsData.forEach(d => {
+                districtDetails.innerHTML += `<div class="district-card ${d.theme}"><h4>${d.name} <span class="district-tag">${d.tag}</span></h4><p class="block-detail" style="font-size:15.5px; font-weight:600;">${d.content}</p></div>`;
+            });
+
             const realmsContent = document.getElementById('realms-content');
             realmsData.forEach(r => { realmsContent.innerHTML += `<div class="info-block ${r.theme}"><span class="block-header">${r.name}</span><p class="block-detail">${r.content}</p></div>`; });
 
