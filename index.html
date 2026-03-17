@@ -80,7 +80,27 @@
         <header><h1 class="main-logo">Harmonia</h1><p class="sub-title">Integrated Academy Database</p></header>
         <nav><a onclick="showSection('home')" id="nav-home">HOME</a><a onclick="showSection('realms')" id="nav-realms">REALMS</a><a onclick="showSection('academy')" id="nav-academy">ACADEMY</a><a onclick="showSection('history')" id="nav-history">HISTORY</a><a onclick="showSection('glossary')" id="nav-glossary">GLOSSARY</a><a onclick="showSection('faction')" id="nav-faction">FACTION</a></nav>
         <main id="main-content">
-            <section id="home"><div style="text-align: center; padding: 60px 0;"><h2 style="font-family: var(--font-title); font-size: 40px; margin-bottom: 40px;">하르모니아 아카데미 비밀 서고</h2><p style="line-height: 3.5; font-size: 22px; font-weight: 600; color: #2d1f15;">모든 학생과 교사 여러분은 이곳의 기록을 통해 차원의 경계를 이해하고 수호하는 법을 배우게 될 것입니다.</p></div></section>
+            <section id="home">
+    <div style="text-align: center; padding: 60px 0;">
+        <h2 style="font-family: var(--font-title); font-size: 45px; margin-bottom: 10px; color: #2d1f15;">SYSTEM LOGGED IN</h2>
+        <p style="letter-spacing: 5px; color: var(--point-color); font-weight: 900; margin-bottom: 50px;">ACCESS LEVEL: ADMINISTRATOR</p>
+        
+        <div style="background: rgba(255,255,255,0.4); padding: 50px; border-radius: 4px; display: inline-block; min-width: 600px; border: 1px solid rgba(142, 90, 49, 0.1);">
+            <p style="line-height: 3.2; font-size: 24px; font-weight: 600; color: #3d2b1f; margin: 0;">
+                모든 학생과 교사 여러분은 <br> 
+                이곳의 기록을 통해 <br> 
+                차원의 경계를 이해하고 수호하는 법을 배우게 될 것입니다.
+            </p>
+        </div>
+
+        <div style="margin-top: 50px; opacity: 0.3;">
+            <svg width="200" height="20" viewBox="0 0 200 20">
+                <line x1="0" y1="10" x2="200" y2="10" stroke="#8e7a56" stroke-width="1"/>
+                <rect x="90" y="5" width="20" height="10" fill="#8e7a56" transform="rotate(45 100 10)"/>
+            </svg>
+        </div>
+    </div>
+</section>
             <section id="realms"><div id="realms-content"></div></section>
             <section id="academy"><div id="academy-content"></div><h3 style="text-align:center; font-size: 35px; margin: 100px 0 50px;">Explorer Rank System</h3><table class="rank-table"><tbody id="rank-body"></tbody></table></section>
             <section id="history"><div id="history-timeline" class="timeline"></div></section>
