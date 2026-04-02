@@ -39,32 +39,36 @@
         section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* [3. 프레임 디자인] */
+        /* [3. 이미지 프레임 및 폴더] */
         .map-frame { width: 100%; background: #000; padding: 15px; box-sizing: border-box; border: 2px solid var(--point-color); border-radius: 4px; margin-bottom: 50px; box-shadow: 0 0 40px rgba(142, 90, 49, 0.15); text-align: center; }
         .map-frame img { width: 100%; height: auto; display: block; border: 1px solid #333; filter: brightness(0.9) contrast(1.1); transition: 0.5s; }
         .map-frame.labyrinth-frame { border-color: var(--color-labyrinth); box-shadow: 0 0 40px rgba(74, 20, 140, 0.2); }
         .map-label { font-family: var(--font-title); color: var(--point-color); font-size: 13px; letter-spacing: 6px; padding: 12px 0; display: block; border-bottom: 1px solid rgba(142, 90, 49, 0.2); margin-bottom: 15px; }
         .map-credit { display: block; text-align: right; color: rgba(142, 90, 49, 0.6); font-size: 11px; font-weight: 900; margin-top: 10px; letter-spacing: 1px; }
 
-        /* [4. 폴더 및 인터랙티브 UI] */
         .doc-folder { background: #fff; border: 1px solid #ddd; margin-bottom: 25px; border-radius: 4px; overflow: hidden; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .doc-folder-header { padding: 25px 35px; background: #f8f8f8; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-title); font-size: 24px; border-bottom: 1px solid #eee; }
         .doc-content { max-height: 0; overflow: hidden; transition: max-height 0.6s ease-out; background: #fff; font-size: 18.5px; font-weight: 600; line-height: 2.2; text-align: justify; padding: 0 45px; }
         .doc-folder.active .doc-content { max-height: 6000px; padding: 45px; }
         .doc-folder.active { box-shadow: 0 15px 45px rgba(0,0,0,0.1); border-color: var(--point-color); }
+        
+        /* 테마별 배색 */
         .theme-guideline { border-left: 10px solid var(--color-guideline); }
         .theme-asphodel { border-left: 10px solid var(--color-asphodel); }
         .theme-hongyeong { border-left: 10px solid var(--color-hongyeong); }
         .theme-labyrinth { border-left: 10px solid var(--color-labyrinth); }
+
         .dept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; list-style: none; padding: 0; margin-top: 35px; }
         .dept-card { padding: 24px; color: #fff !important; font-weight: 900; font-size: 19.5px; border-radius: 4px; text-align: center; cursor: help; position: relative; transition: 0.3s; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         .theme-guideline .dept-card { background: var(--color-guideline); }
         .theme-asphodel .dept-card { background: var(--color-asphodel); }
         .theme-hongyeong .dept-card { background: var(--color-hongyeong); }
+
         .timeline { padding-left: 60px; border-left: 5px solid var(--point-color); margin-top: 40px; }
         .event { position: relative; margin-bottom: 90px; }
         .event::before { content: ''; position: absolute; width: 22px; height: 22px; background: var(--point-color); border: 5px solid #fff; border-radius: 50%; left: -78.5px; top: 10px; box-shadow: 0 0 15px rgba(142, 90, 49, 0.4); }
         .event-date { font-weight: 900; color: var(--point-color); font-size: 22px; display: block; font-family: 'Playfair Display SC', serif; }
+        
         .rank-table { width: 100%; border-collapse: collapse; margin-top: 30px; background: #fff; }
         .rank-table td { padding: 25px; border-bottom: 1px solid #eee; }
         .rank-label { font-family: var(--font-title); font-size: 32px; text-align: center; color: var(--point-color); width: 85px; }
@@ -140,64 +144,52 @@
         // [Data: Realms]
         const realmsData = [
             { name: "🌏 Earth (지구)", theme: "theme-guideline", content: "원래의 인류가 살아가던 터전입니다. 2024년 게이트 발생 이후 [시스템]과 [성좌]라는 초월적 간섭이 일상화된 세계입니다. 현대 과학과 신비가 공존하고 있으며, 성좌의 권능을 필터링하여 사용하는 헌터들이 인류의 새로운 방패로 서 있습니다." },
-            { name: "🌑 Asphodel (아스포델)", theme: "theme-asphodel", content: "푸른색의 아스포델입니다. 19세기 서구권과 유사한 삶과 죽음이 뒤섞여 있는 회색의 세계입니다. 죽음이 없는 터라 제압이나 무력화에 중심을 둔 의학의 발달이 더디고, 장례 문화와 그것을 기반으로 한 주술이 크게 발달하였습니다. 타인의 혼과 넋을 취하는 혼란 속에 장의사들이 종교적 예법으로 무아로 되돌리는 역할을 수행합니다." },
-            { name: "⚔️ Hong-Yeong (홍영)", theme: "theme-hongyeong", content: "도술, 주술, 무공, 선술, 요술이 공존하는 세계입니다. 다양한 생명체들이 조화를 이루며 살아가는 듯 보이지만, 실상은 수라도(修羅道)를 연상시키는 투쟁의 세계입니다. 황실, 무림, 선산이라는 거대한 세력이 서로 명분을 겨누며 긴장감을 유지하고 있습니다." }
+            { name: "🌑 Asphodel (아스포델)", theme: "theme-asphodel", content: "푸른색의 아스포델입니다. 삶과 죽음이 뒤섞여 있는 회색의 세계입니다. 장의사들이 종교적 예법으로 타락한 자들을 제압하고 무아로 되돌리는 역할을 수행합니다." },
+            { name: "⚔️ Hong-Yeong (홍영)", theme: "theme-hongyeong", content: "도술, 무공, 선술이 공존하는 세계입니다. 투쟁의 본능이 잠든 수라도와 같으며, 거대 세력들이 명분을 겨누며 팽팽한 긴장감을 유지하고 있습니다." }
         ];
 
-        // [Data: Labyrinth - 심연 전문 데이터]
+        // [Data: Labyrinth - 아리아드네 설정 업데이트]
         const labyrinthData = [
             { 
                 name: "🕳️ 침식 미궁 : 라비린토스(Labyrinth) 개요", 
                 theme: "theme-labyrinth", 
-                content: "중국 베이징을 중심으로 뚫려 있는 반경 450km²에 달하는 거대한 구멍인 라비린토스입니다. 이곳은 끔찍한 괴물과 질병, 저주 등을 끊임없이 쏟아내기에 닿는 순간부터 더는 평범한 사람으로 살아갈 수 없게 됩니다. 라비린토스 내부에는 지구에서 찾아볼 수 없는 이계의 자원과 기술들이 존재하며, 이곳에 접촉한 이들은 마치 초능력 같은 신비로운 힘을 얻게 됩니다. 하지만 그 힘의 대가는 언젠가 괴물이 되어버릴지도 모른다는 침식의 공포입니다. 그렇기에 하르모니아에서는 라비린토스를 끝내고 침식의 공포에서 벗어나고자 계속해서 탐사자들을 심연으로 내려보내고 있습니다." 
+                content: "중국 베이징을 중심으로 형성된 반경 450km² 규모의 거대한 구멍입니다. 끔찍한 괴물과 질병, 저주를 쏟아내지만, 동시에 지구에서 찾아볼 수 없는 이계의 자원과 기술의 보고이기도 합니다. 접촉한 이들은 신비로운 힘을 얻게 되나, 그 대가로 언젠가 괴물이 되어버리는 '침식의 공포'를 평생 짊어지게 됩니다." 
             },
-            { name: "📉 심층 레벨 (Deep Layers)", theme: "theme-labyrinth", content: "관리관님의 상세 기록 대기 중..." },
-            { name: "🚩 위험 구역 (Hazard Zones)", theme: "theme-labyrinth", content: "관리관님의 상세 기록 대기 중..." }
+            { 
+                name: "⚓ 전용 탑승기 : 아리아드네 (Ariadne)", 
+                theme: "theme-labyrinth", 
+                content: "라비린토스에 진입할 때는 육체에 막대한 부담이 가해지며, 극심한 침식을 유도하고 정신의 근간을 흔들어 놓습니다. 따라서 탐사자들이 안전하게 심연으로 들어가기 위해서는 전용 탑승기인 **[아리아드네]**를 이용해야만 합니다. 엘리베이터를 연상시키는 형태의 이 탑승기는 하강 과정에서 발생하는 차원 밀도의 차이로 인해 미세한 신체적 충격을 주기는 하지만, 맨몸으로 심연에 투신하는 것에 비하면 비약적으로 안전한 수단입니다. [아리아드네]는 하르모니아 아카데미 내부에 설치되어 있으며 탐사자의 투입뿐만 아니라 전략 물자의 운반에도 널리 쓰입니다. 특히 미궁의 심층부로 내려갈수록 균열의 불안정성과 이계화 피해가 극심해지기에, 아리아드네의 존재는 탐사자들에게 필수적인 생명선과 같습니다. 명칭은 그리스 로마 신화에서 길잡이 역할을 했던 아리아드네의 실타래에서 유래한 것으로 추정됩니다." 
+            },
+            { 
+                name: "🚩 위험 구역 (Hazard Zones)", 
+                theme: "theme-labyrinth", 
+                content: "특수한 환경적 위협이나 강력한 개체가 서식하는 구역 정보입니다. 관리관님의 상세 기록을 기다리고 있습니다." 
+            }
         ];
 
-        // [Data: Academy - 도시 구조 복구본]
         const academyData = [
-            { 
-                name: "🏛️ City Overview : 천공섬 하르모니아", 
-                theme: "theme-center", 
-                content: "하르모니아는 라비린토스의 격리와 출입을 철저히 통제하기 위해 그 위에 건설된 거대 천공섬입니다. 인류 최전방에서 차원의 경계를 수호하는 거대한 방패 역할을 수행하며, 탐사자의 육성과 심연 조사를 주 목적으로 합니다. 천공섬 외부 활동이 엄격히 통제되는 신원 귀속 지역이지만, 동시에 이계의 기술과 지구의 과학이 만나 가장 찬란하게 발달한 도시이기도 합니다." 
-            },
-            { name: "🏢 중앙 구역 : 하르모니아 아카데미", theme: "theme-center", content: "천공섬의 심장부입니다. 홍영, 가이드라인, 아스포델 세 파벌이 교차하는 지점이며, 탑승기 [아리아드네]와 관측기 [아르고스]가 보관된 보안 구역입니다. 별 하늘을 연상시키는 은빛 성채로 이루어져 있습니다." },
-            { name: "📡 북쪽 구역 : 가이드라인 거주 지구", theme: "theme-guideline", content: "철저한 중립 구역으로 하르모니아 내에서 가장 개방적인 장소입니다. 24시간 활기가 넘치는 거대 항구의 성격을 띠며 유리와 강철 소재의 최첨단 고층 빌딩들이 줄지어 서 있습니다. 모든 시설은 중앙 AI에 의해 관리됩니다." },
-            { name: "⚔️ 남동쪽 구역 : 홍영 거주 지구", theme: "theme-hongyeong", content: "거대한 '갈하강(渴河江)'을 중심으로 세 구역으로 나뉩니다. 전형적인 동양풍 건축물 이면에는 호전적인 기풍이 배어 있으며, 주민들은 예의와 강함을 동시에 숭상합니다. 시장은 용광로 열기와 약재 향으로 가득합니다." },
-            { name: "🌑 남서쪽 구역 : 아스포델 거주 지구", theme: "theme-asphodel", content: "음침한 숲과 19세기 제국주의 양식의 건물들이 늘어선 구역입니다. 1년 내내 스산한 안개와 가스등이 몽환적인 분위기를 연출합니다. 혼을 활용해 제작한 마법 용품들이 활발하게 거래됩니다." }
+            { name: "🏛️ City Overview : 천공섬 하르모니아", theme: "theme-center", content: "라비린토스의 격리와 출입을 통제하기 위해 건설된 거대 천공섬입니다. 인류 최전방의 방패이자 탐사자 육성의 산실입니다." },
+            { name: "🏢 중앙 구역 : 하르모니아 아카데미", theme: "theme-center", content: "천공섬의 심장부입니다. 탑승기 [아리아드네]와 관측기 [아르고스]가 보관된 최고 보안 구역이며, 세 파벌이 교차하는 지점입니다." },
+            { name: "📡 북쪽 구역 : 가이드라인 거주 지구", theme: "theme-guideline", content: "철저한 중립 구역이자 거대 항구입니다. 최첨단 빌딩들과 중앙 AI에 의해 관리되는 기반 시설이 특징입니다." },
+            { name: "⚔️ 남동쪽 구역 : 홍영 거주 지구", theme: "theme-hongyeong", content: "갈하강을 중심으로 형성된 동양풍 구역입니다. 장인들의 공방과 호전적인 기풍, 용광로의 열기가 가득한 시장이 특징입니다." },
+            { name: "🌑 남서쪽 구역 : 아스포델 거주 지구", theme: "theme-asphodel", content: "안개 자욱한 숲과 제국주의 양식의 건물이 특징인 구역입니다. 혼을 활용한 마법 용품들이 주로 거래됩니다." }
         ];
 
         const historyData = [
-            { date: "2024. 12. 24", title: "첫 게이트 발생", content: "중국 사천 지방에서 발견된 작은 균열이 모든 비극의 시작이었습니다." },
-            { date: "2024. 12. 31", title: "첫 게이트 브레이크", content: "과부하된 게이트가 붕괴하며 사천 지방을 침식하고 이계화시켰습니다." },
-            { date: "2025. 01. 04", title: "1차 침식 대전 - 중국의 몰락", content: "현대 무기는 이계인의 이능에 쉽게 무력화되었고 베이징은 운석에 파괴되었습니다." },
-            { date: "2025. 01. 11", title: "성좌와 시스템의 등장", content: "선택받은 인간들이 성좌의 권능을 빌려 인류의 새로운 방패로 일어섰습니다." },
-            { date: "2025. 01. 24", title: "이계침식 '라비린토스' 발생", content: "방치된 게이트들이 융합되며 중국 땅이 거대한 미궁으로 변모했습니다." },
-            { date: "2025. 01. 25", title: "하르모니아 연맹 결성", content: "공멸의 위기를 깨달은 양쪽 진영이 휴전하고 연맹을 창설했습니다." },
-            { date: "2025. 01. 27", title: "미궁 안정화 출전", content: "연맹의 노력으로 침식 범위를 중국 지하로 한정하는 데 성공했습니다." },
-            { date: "2025. 02. 04", title: "하르모니아 조약 체결", content: "이계인과 인류의 공존을 약속하는 역사적인 조약이 맺어졌습니다." },
-            { date: "2025. 02. 15", title: "이계인 거주지구 확정", content: "중국 영토 내에 이계인 정착이 결정되었습니다." },
-            { date: "2025. 02. 18", title: "천공섬 공사 시작", content: "하늘에 떠 있는 방패, 하르모니아의 공사가 시작되었습니다." },
-            { date: "2034. 12. 24", title: "하르모니아 개방", content: "준공된 하르모니아가 탐사 거점으로 공식 개방되었습니다." },
-            { date: "2035. 01. 01", title: "아리아드네 완성", content: "미궁 진입을 위한 전용 기동 장비가 배치되었습니다." },
-            { date: "2037. 01. 05", title: "아르고스 완성", content: "미궁 내부를 감시하는 전용 관측기 망이 가동되었습니다." },
-            { date: "2077. 07. 07", title: "하르모니아 대테러", content: "극단주의자들의 테러가 있었으나 이사장에 의해 제압되었습니다." },
-            { date: "2083. 05. 04", title: "2차 탈취 시도 방어", content: "'무지' 집단의 침공으로부터 아르고스를 지켜냈습니다." },
-            { date: "2127. 04. 01", title: "NOW : 현재", content: "하르모니아는 여전히 차원의 경계에서 심연을 감시하고 있습니다." }
+            { date: "2024. 12. 24", title: "첫 게이트 발생", content: "중국 사천 지방의 작은 균열이 모든 사건의 시작이었습니다." },
+            { date: "2024. 12. 31", title: "첫 게이트 브레이크", content: "게이트 붕괴로 사천 지방이 잠식되고 이계화되었습니다." },
+            { date: "2025. 01. 04", title: "1차 침식 대전", content: "이계인의 압도적인 무력 앞에 중국은 몰락의 길을 걷게 되었습니다." },
+            { date: "2025. 01. 11", title: "성좌와 시스템의 등장", content: "선택받은 인간들이 인류의 새로운 방패, '헌터'로 일어섰습니다." },
+            { date: "2025. 01. 24", title: "이계침식 '라비린토스' 발생", content: "중국 영토가 거대한 차원융합형 미궁으로 변모했습니다." },
+            { date: "2127. 04. 01", title: "NOW : 현재", content: "하르모니아 아카데미는 여전히 차원의 경계에서 심연을 감시하고 있습니다." }
         ];
 
         const glossaryData = [
-            { term: "침식 미궁 : 라비린토스", desc: "차원이 뒤섞여 만들어진 수직형 미궁입니다." },
-            { term: "성좌 (Constellation)", desc: "인간에게 권능을 부여하는 초월체들입니다." },
-            { term: "시스템 (System)", desc: "인간의 능력을 관리해주는 세계의 의지입니다." },
+            { term: "침식 미궁 : 라비린토스", desc: "차원이 뒤섞여 만들어진 거대 수직 미궁입니다." },
+            { term: "성좌 (Constellation)", desc: "인간에게 권능을 부여하는 전설적인 초월체들입니다." },
+            { term: "시스템 (System)", desc: "인간의 능력을 필터링하여 관리해주는 세계의 의지입니다." },
             { term: "이계화 (異界化)", desc: "게이트 에너지가 현실을 영구적으로 변질시키는 현상입니다." },
-            { term: "게이트 브레이크", desc: "방치된 게이트가 붕괴하며 마수가 쏟아지는 재앙입니다." },
-            { term: "퓨어 휴먼", desc: "이계인과 침식자를 배척하는 순혈주의 단체입니다." },
-            { term: "무지 (無知)", desc: "범죄를 일삼는 비밀 결사 집단입니다." },
-            { term: "조율협회", desc: "외부 활동과 대중 여론을 관리하는 행정 기관입니다." },
-            { term: "하르모니아 조약", desc: "공존을 약속한 평화 조약입니다." },
-            { term: "침식자", desc: "에너지 노출로 신체가 변질된 지구인들입니다." }
+            { term: "침식자 (Erosive Person)", desc: "에너지 노출로 인해 신체가 변질된 지구인들입니다." }
         ];
 
         const factionData = [
