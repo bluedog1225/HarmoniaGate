@@ -15,7 +15,7 @@
             --glass-bg: rgba(255, 252, 245, 0.96);
         }
 
-        /* [1. 배경 엔진] */
+        /* [배경 엔진] */
         body { font-family: var(--font-main); margin: 0; padding: 0; background-color: #050505; color: #1a1714; overflow-x: hidden; line-height: 1.9; word-break: keep-all; }
         #parallax-bg { position: fixed; top: -5%; left: -5%; width: 110%; height: 110%; background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; z-index: -3; will-change: transform; }
         #mist-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; pointer-events: none; }
@@ -24,7 +24,7 @@
         .mist-2 { bottom: -10%; animation-duration: 130s; animation-direction: reverse; opacity: 0.1; }
         @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* [2. 레이아웃 & 인트로] */
+        /* [인트로 및 레이아웃] */
         #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0c0b0a; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 1.2s ease; cursor: pointer; }
         #intro-overlay.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
         #container { width: 1050px; margin: 60px auto; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 80px; box-sizing: border-box; border-radius: 4px; box-shadow: 0 50px 150px rgba(0,0,0,0.9); position: relative; opacity: 0; transform: translateY(30px); transition: 1.2s ease-out; z-index: 10; }
@@ -32,14 +32,16 @@
         header { text-align: center; border-bottom: 2px solid rgba(142, 90, 49, 0.2); padding-bottom: 50px; margin-bottom: 50px; }
         .main-logo { font-family: 'Great Vibes', cursive; font-size: 100px; margin: 0; color: #2d1f15; }
         .sub-title { font-size: 14px; letter-spacing: 12px; color: #8e7a56; font-weight: 900; text-transform: uppercase; margin-top: -15px; }
+
         nav { display: flex; justify-content: center; gap: 5px; margin-bottom: 60px; }
         nav a { color: #8e7a56; text-decoration: none; font-size: 17px; font-weight: 900; cursor: pointer; transition: 0.3s; padding: 10px 20px; }
         nav a:hover, nav a.active { color: #1a1714; border-bottom: 3px solid var(--point-color); }
+
         section { display: none; animation: fadeIn 0.6s forwards; }
         section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* [3. 이미지 프레임 및 폴더] */
+        /* [프레임 및 폴더 UI] */
         .map-frame { width: 100%; background: #000; padding: 15px; box-sizing: border-box; border: 2px solid var(--point-color); border-radius: 4px; margin-bottom: 50px; box-shadow: 0 0 40px rgba(142, 90, 49, 0.15); text-align: center; }
         .map-frame img { width: 100%; height: auto; display: block; border: 1px solid #333; filter: brightness(0.9) contrast(1.1); transition: 0.5s; }
         .map-frame.labyrinth-frame { border-color: var(--color-labyrinth); box-shadow: 0 0 40px rgba(74, 20, 140, 0.2); }
@@ -52,7 +54,6 @@
         .doc-folder.active .doc-content { max-height: 6000px; padding: 45px; }
         .doc-folder.active { box-shadow: 0 15px 45px rgba(0,0,0,0.1); border-color: var(--point-color); }
         
-        /* 테마별 배색 */
         .theme-guideline { border-left: 10px solid var(--color-guideline); }
         .theme-asphodel { border-left: 10px solid var(--color-asphodel); }
         .theme-hongyeong { border-left: 10px solid var(--color-hongyeong); }
@@ -68,7 +69,13 @@
         .event { position: relative; margin-bottom: 90px; }
         .event::before { content: ''; position: absolute; width: 22px; height: 22px; background: var(--point-color); border: 5px solid #fff; border-radius: 50%; left: -78.5px; top: 10px; box-shadow: 0 0 15px rgba(142, 90, 49, 0.4); }
         .event-date { font-weight: 900; color: var(--point-color); font-size: 22px; display: block; font-family: 'Playfair Display SC', serif; }
+        .event-title { font-size: 26px; color: #1a1714; font-family: var(--font-title); display: block; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
         
+        .glossary-item { border-bottom: 1px solid #eee; }
+        .glossary-trigger { padding: 22px 0; cursor: pointer; font-family: var(--font-title); font-size: 20px; color: var(--point-color); display: flex; align-items: center; gap: 15px; }
+        .glossary-body { max-height: 0; overflow: hidden; transition: 0.4s ease; padding-left: 35px; font-size: 17.5px; color: #333; font-weight: 500; }
+        .glossary-item.open .glossary-body { max-height: 800px; padding-bottom: 25px; }
+
         .rank-table { width: 100%; border-collapse: collapse; margin-top: 30px; background: #fff; }
         .rank-table td { padding: 25px; border-bottom: 1px solid #eee; }
         .rank-label { font-family: var(--font-title); font-size: 32px; text-align: center; color: var(--point-color); width: 85px; }
@@ -141,65 +148,68 @@
     </div>
 
     <script>
-        // [Data: Realms]
+        /* [DATA ARCHIVE: 완전 복구 원문] */
         const realmsData = [
             { name: "🌏 Earth (지구)", theme: "theme-guideline", content: "원래의 인류가 살아가던 터전입니다. 2024년 게이트 발생 이후 [시스템]과 [성좌]라는 초월적 간섭이 일상화된 세계입니다. 현대 과학과 신비가 공존하고 있으며, 성좌의 권능을 필터링하여 사용하는 헌터들이 인류의 새로운 방패로 서 있습니다." },
-            { name: "🌑 Asphodel (아스포델)", theme: "theme-asphodel", content: "푸른색의 아스포델입니다. 삶과 죽음이 뒤섞여 있는 회색의 세계입니다. 장의사들이 종교적 예법으로 타락한 자들을 제압하고 무아로 되돌리는 역할을 수행합니다." },
-            { name: "⚔️ Hong-Yeong (홍영)", theme: "theme-hongyeong", content: "도술, 무공, 선술이 공존하는 세계입니다. 투쟁의 본능이 잠든 수라도와 같으며, 거대 세력들이 명분을 겨누며 팽팽한 긴장감을 유지하고 있습니다." }
+            { name: "🌑 Asphodel (아스포델)", theme: "theme-asphodel", content: "푸른색의 아스포델입니다. 19세기 서구권과 유사한 삶과 죽음이 뒤섞여 있는 회색의 세계입니다. 이 세계에서 죽음이란 존재의 소멸이 아닌, '제한 시간'이 생기는 것과 같습니다. 죽어도 죽지 않으며 혼으로서, 망자로서 그저 변화할 뿐 존재가 여전히 유지되기 때문입니다. 죽음이 없는 터라 제압이나 무력화에 중심을 둔 의학의 발달이 더디고, 장례 문화와 그것을 기반으로 한 주술이 크게 발달하였습니다. 주술이나 무술 또한 살상보다는 무력화와 제압, 고문에 가까운 형태를 지니고 있습니다. 그러나 죽음이 없더라도 언제나 끝은 존재하는 법이기에, 삶의 영역에서 죽음의 영역으로 넘어간 이들은 시간이 지날수록 그 혼이 흐트러지고 그 혼에 따라 넋 또한 흐려지니 결국에는 움직임이 없는 무아로 돌아가게 됩니다. 무아에서 도망칠 방법은 끊임없이 타인의 혼과 넋을 자신의 것으로 삼는 것으로, 이 탓에 아스포델에서는 혼란이 끊이지 않습니다. 이러한 상황들이 겹쳐서 생긴 것이 장의사이며, 이들은 종교의 가르침으로 주술과 무예를 익혀 타락하여 타인의 혼을 탐하는 이들을 제압하고 강제로 무아로 되돌리는 역할을 수행합니다. 아스포델에 있는 종교는 문화나 지역에 따라 그 율법이나 교리, 부르는 신의 이름 또한 차이를 보이지만 그 근본은 단일 종교이며, 무아가 된 이들을 받아주는 '끝의 신'을 모시고 있습니다." },
+            { name: "⚔️ Hong-Yeong (홍영)", theme: "theme-hongyeong", content: "도술, 주술, 무공, 선술, 요술이 공존하는 세계입니다. 다양한 생명체들이 조화를 이루며 평화롭게 살아가는 듯 보이지만, 실상은 서로를 물어뜯고 할퀴며 피와 같은 붉은빛이 사라지지 않는 수라도(修羅道)를 연상시키는 세계입니다. 황실, 무림, 선산이라는 총 3개의 거대한 세력이 존재하며, 서로 명분과 기회만 충분하다면 공격할 생각이 가득한 것으로 보입니다. 홍영의 오악(五岳) 중 태산, 항산, 숭산은 선산이 차지하고 있었고, 나머지 화산은 무림이, 형산은 황실이 차지한 것으로 보입니다. 그것조차 선산에서는 자신들이 닿았어야 할 땅이라며 싫어하는 기색을 보이고 있습니다. 다양한 종족이 살고 있다 보니 요괴나 영물 같은 생물들이 존재하지만, 저 3개의 세력을 껄끄러워하는 편이기에 최대한 피해 다니는 것으로 보입니다. 황실은 450년 전 무림에 나타난 천마가 당시 황제였던 홍덕제의 목을 베었기에 무림을 싫어하고, 선산은 450년 전 천마가 선산을 모독하는 행위를 하였기에 그를 혐오합니다. 무림과 선산은 황실이 틈만 나면 통제를 하려 들기에 싫어하며 날을 세우고 있고, 황실은 선산이나 무림 모두 세속적이고 통제를 따르지 않고 날뛰며 문제를 일으키기에 싫어합니다. 하지만 근본적으로 그들의 피에는 끝없는 투쟁을 갈구하는 수라의 본능이 잠들어 있기에 더욱더 날을 세우는 것일지도 모릅니다." }
         ];
 
-        // [Data: Labyrinth - 아리아드네 설정 업데이트]
         const labyrinthData = [
-            { 
-                name: "🕳️ 침식 미궁 : 라비린토스(Labyrinth) 개요", 
-                theme: "theme-labyrinth", 
-                content: "중국 베이징을 중심으로 형성된 반경 450km² 규모의 거대한 구멍입니다. 끔찍한 괴물과 질병, 저주를 쏟아내지만, 동시에 지구에서 찾아볼 수 없는 이계의 자원과 기술의 보고이기도 합니다. 접촉한 이들은 신비로운 힘을 얻게 되나, 그 대가로 언젠가 괴물이 되어버리는 '침식의 공포'를 평생 짊어지게 됩니다." 
-            },
-            { 
-                name: "⚓ 전용 탑승기 : 아리아드네 (Ariadne)", 
-                theme: "theme-labyrinth", 
-                content: "라비린토스에 진입할 때는 육체에 막대한 부담이 가해지며, 극심한 침식을 유도하고 정신의 근간을 흔들어 놓습니다. 따라서 탐사자들이 안전하게 심연으로 들어가기 위해서는 전용 탑승기인 **[아리아드네]**를 이용해야만 합니다. 엘리베이터를 연상시키는 형태의 이 탑승기는 하강 과정에서 발생하는 차원 밀도의 차이로 인해 미세한 신체적 충격을 주기는 하지만, 맨몸으로 심연에 투신하는 것에 비하면 비약적으로 안전한 수단입니다. [아리아드네]는 하르모니아 아카데미 내부에 설치되어 있으며 탐사자의 투입뿐만 아니라 전략 물자의 운반에도 널리 쓰입니다. 특히 미궁의 심층부로 내려갈수록 균열의 불안정성과 이계화 피해가 극심해지기에, 아리아드네의 존재는 탐사자들에게 필수적인 생명선과 같습니다. 명칭은 그리스 로마 신화에서 길잡이 역할을 했던 아리아드네의 실타래에서 유래한 것으로 추정됩니다." 
-            },
-            { 
-                name: "🚩 위험 구역 (Hazard Zones)", 
-                theme: "theme-labyrinth", 
-                content: "특수한 환경적 위협이나 강력한 개체가 서식하는 구역 정보입니다. 관리관님의 상세 기록을 기다리고 있습니다." 
-            }
+            { name: "🕳️ 침식 미궁 : 라비린토스 개요", theme: "theme-labyrinth", content: "중국 베이징을 중심으로 형성된 반경 450km² 규모의 거대한 구멍입니다. 끔찍한 괴물과 질병, 저주 등을 끊임없이 쏟내기에 닿는 순간부터 더는 평범한 사람으로 살아갈 수 없게 됩니다. 라비린토스 내부에는 지구에서 찾아볼 수 없는 이계의 자원과 기술들이 존재하며, 접촉한 이들은 마치 초능력 같은 신비로운 힘을 얻게 됩니다. 하지만 그 힘의 대가는 언젠가 괴물이 되어버릴지도 모른다는 침식의 공포입니다. 그렇기에 하르모니아에서는 라비린토스를 끝내고 침식의 공포에서 벗어나고자 계속해서 탐사자들을 심연으로 내려보내고 있습니다." },
+            { name: "⚓ 전용 탑승기 : 아리아드네 (Ariadne)", theme: "theme-labyrinth", content: "라비린토스에 진입할 때는 육체에 막대한 부담이 가해지며, 극심한 침식을 유도하고 정신을 흔들어 놓습니다. 따라서 탐사자들이 안전하게 들어가기 위해서는 전용 탑승기인 **[아리아드네]**에 탑승해야만 합니다. 엘리베이터를 연상시키는 형태의 이 탑승기는 내려가면서 느껴지는 차원 밀도의 차이에 의해 조그마한 신체적 피해를 입히기도 하지만, 맨몸으로 떨어지는 것에 비하면 비약적으로 안전합니다. [아리아드네]는 하르모니아 아카데미 내부에 위치하며, 탐사자의 투입뿐만 아니라 물자를 보낼 때에도 널리 쓰입니다. 라비린토스는 아래로 내려갈수록 균열의 불안정성에 의해 침식 가능성과 이계화 피해가 커지기에, 아리아드네의 필요성은 심층부로 갈수록 더욱 절실해집니다. 명칭의 유래는 그리스 로마 신화의 아리아드네로 추정됩니다." },
+            { name: "🚩 위험 구역 (Hazard Zones)", theme: "theme-labyrinth", content: "심층부의 각 구역에 대한 위험도 및 생태 정보는 관리관님의 추가 기록을 기다리고 있습니다." }
         ];
 
         const academyData = [
-            { name: "🏛️ City Overview : 천공섬 하르모니아", theme: "theme-center", content: "라비린토스의 격리와 출입을 통제하기 위해 건설된 거대 천공섬입니다. 인류 최전방의 방패이자 탐사자 육성의 산실입니다." },
-            { name: "🏢 중앙 구역 : 하르모니아 아카데미", theme: "theme-center", content: "천공섬의 심장부입니다. 탑승기 [아리아드네]와 관측기 [아르고스]가 보관된 최고 보안 구역이며, 세 파벌이 교차하는 지점입니다." },
-            { name: "📡 북쪽 구역 : 가이드라인 거주 지구", theme: "theme-guideline", content: "철저한 중립 구역이자 거대 항구입니다. 최첨단 빌딩들과 중앙 AI에 의해 관리되는 기반 시설이 특징입니다." },
-            { name: "⚔️ 남동쪽 구역 : 홍영 거주 지구", theme: "theme-hongyeong", content: "갈하강을 중심으로 형성된 동양풍 구역입니다. 장인들의 공방과 호전적인 기풍, 용광로의 열기가 가득한 시장이 특징입니다." },
-            { name: "🌑 남서쪽 구역 : 아스포델 거주 지구", theme: "theme-asphodel", content: "안개 자욱한 숲과 제국주의 양식의 건물이 특징인 구역입니다. 혼을 활용한 마법 용품들이 주로 거래됩니다." }
+            { name: "🏛️ City Overview : 천공섬 하르모니아", theme: "theme-center", content: "하르모니아는 라비린토스의 격리와 출입을 철저히 통제하기 위해 그 위에 건설된 거대 천공섬입니다. 인류 최전방에서 차원의 경계를 수호하는 거대한 방패 역할을 수행하며, 탐사자의 육성과 심연 조사를 주 목적으로 합니다. 천공섬 외부 활동이 엄격히 통제되는 신원 귀속 지역이지만, 동시에 이계의 기술과 지구의 과학이 만나 가장 찬란하게 발달한 도시이기도 합니다." },
+            { name: "🏢 중앙 구역 : 하르모니아 아카데미", theme: "theme-center", content: "천공섬 하르모니아의 중앙에 위치한 섬의 중심부입니다. 홍영, 가이드라인, 아스포델 3개의 세력이 만나는 지점으로, 라비린토스 직통 탑승기 [아리아드네]와 균열 관측기 [아르고스]가 보관된 철저한 보안 구역입니다. 별 하늘을 연상시키는 은빛 검은 성채로 이루어져 있으며, 각 학파의 건물들과 훈련장, 거대 도서관, 전문 병원 등이 밀집해 있습니다. 이곳은 교육 기관인 동시에 전 세계 세력들의 견제를 받는 전략적 요충지이기도 합니다." },
+            { name: "📡 북쪽 구역 : 가이드라인 거주 지구", theme: "theme-guideline", content: "천공섬 북쪽에 위치한 가이드라인은 특정 세력에 치우치지 않는 철저한 중립 구역입니다. 하르모니아 내에서 가장 개방적인 장소로, 전 세계 국가와 기업들의 막대한 투자가 집중되는 거대 항구의 성격을 띱니다. 최첨단 유리와 강철 소재의 고층 빌딩들이 즐비하며, 건물의 외벽은 실시간 정보를 송출하는 홀로그램 패널로 덮여 있습니다. 거리 곳곳에는 무인 로봇과 보안 드론이 배치되어 있으며 모든 시설은 중앙 AI에 의해 관리됩니다. 중립 유지를 위해 감시 시스템이 매우 엄격하며, 시장은 헌터를 위한 특수 소재 무기 등 고부가가치 기술 산물들이 주를 이룹니다." },
+            { name: "⚔️ 남동쪽 구역 : 홍영 거주 지구", theme: "theme-hongyeong", content: "홍영 거주 지구는 거대한 '갈하강(渴河江)'을 중심으로 도시 전체가 세 개의 구역으로 엄격히 나뉘어 있습니다. 모든 생활권이 이 강을 중심으로 형성되어 있으며, 강물은 장인들의 공방에서 열기를 식히는 냉각수로 쓰이거나 물자를 운반하는 주요 통로가 됩니다. 건물들은 전형적인 동양풍 목조 및 석조 건축을 따르고 있으나 그 이면에는 호전적인 기풍이 깊게 배어 있습니다. 주민들은 예의를 중시하면서도 강함을 숭상하는 호전적인 성향을 지니고 있어 명분이 주어진다면 끝까지 싸움을 붙이곤 합니다. 시장은 용광로의 열기와 약재 향으로 가득하며, 장인이 제작한 최고급 환(丸)이나 무기, 주구(呪具) 등이 거래됩니다." },
+            { name: "🌑 남서쪽 구역 : 아스포델 거주 지구", theme: "theme-asphodel", content: "천공섬 남서쪽에 위치한 음침한 숲과 19세기 중후반 제국주의 양식의 건물들이 늘어선 구역입니다. 1년 내내 스산한 안개가 껴 있으며 가스등이 도로의 윤곽을 비춥니다. 이곳은 개인 주거보다는 공용 주거와 상업에 특화되어 있으며, 건물의 형태만으로 기능을 파악할 수 있을 정도로 일관된 패턴을 보입니다. 주로 판매되는 것은 무아가 된 혼들을 활용하여 제작한 마법 용품이나 특수 식량들입니다." }
         ];
 
         const historyData = [
-            { date: "2024. 12. 24", title: "첫 게이트 발생", content: "중국 사천 지방의 작은 균열이 모든 사건의 시작이었습니다." },
-            { date: "2024. 12. 31", title: "첫 게이트 브레이크", content: "게이트 붕괴로 사천 지방이 잠식되고 이계화되었습니다." },
-            { date: "2025. 01. 04", title: "1차 침식 대전", content: "이계인의 압도적인 무력 앞에 중국은 몰락의 길을 걷게 되었습니다." },
-            { date: "2025. 01. 11", title: "성좌와 시스템의 등장", content: "선택받은 인간들이 인류의 새로운 방패, '헌터'로 일어섰습니다." },
-            { date: "2025. 01. 24", title: "이계침식 '라비린토스' 발생", content: "중국 영토가 거대한 차원융합형 미궁으로 변모했습니다." },
-            { date: "2127. 04. 01", title: "NOW : 현재", content: "하르모니아 아카데미는 여전히 차원의 경계에서 심연을 감시하고 있습니다." }
+            { date: "2024. 12. 24", title: "첫 게이트 발생", content: "중국의 사천 지방에서 작은 게이트가 발생했습니다. 해당 게이트는 발생 이후 무지했던 이들에 의해 방치되다가 공안에 의해 발견되어 연구가 시작되었습니다." },
+            { date: "2024. 12. 31", title: "첫 게이트 브레이크 - 이계화 발생", content: "방치되어 과부하가 시작된 게이트가 붕괴하며 사천 지방을 침식하고 이계화시키기 시작했습니다. 동시에 피난을 온 이계인들과의 소통 실패로 1차 침식 대전이 발발하였습니다." },
+            { date: "2025. 01. 04", title: "1차 침식 대전 - 중국의 몰락", content: "현대 무기는 이계인들의 이능 앞에 무력화되었고 결국 이계인들은 지구 전역으로 진격을 시작했습니다. 베이징에 운석이 박히면서 중국은 몰락의 길을 걷게 되었습니다." },
+            { date: "2025. 01. 11", title: "시스템, 성좌 그리고 헌터의 등장", content: "기이한 존재 [성좌]의 선택을 받은 인간들이 나타나 이계인들의 앞을 막아섰습니다. 이후 [시스템]이 인류에게 정착하면서 대등한 전투가 가능해졌고 헌터의 시대가 열렸습니다." },
+            { date: "2025. 01. 24", title: "'이계침식' 라비린토스", content: "방치된 게이트들이 동시에 브레이크를 일으키며 수많은 차원들이 뒤섞였습니다. 중국 땅은 거대한 미궁으로 변모했고, 존재가 오염되어 인간도 이계인도 아닌 무언가로 변하는 비극이 시작되었습니다." },
+            { date: "2025. 01. 25", title: "1차 침식 대전 휴전 - 연맹 결성", content: "공멸의 위기를 깨달은 양쪽 진영은 휴전을 선언하고 일시적으로 동맹을 맺으며 '하르모니아 연맹'이 탄생하게 되었습니다." },
+            { date: "2025. 01. 27", title: "하르모니아 연맹 출전 - 안정화 성공", content: "연맹은 미궁 라비린토스로 스스로 발걸음을 옮겼습니다. 완전 공략은 불가능했으나 안정화에 성공하여 침식 범위를 중국 지하로 한정하는 데 성공했습니다." },
+            { date: "2025. 02. 04", title: "종전, 그리고 하르모니아 조약", content: "공존을 약속하며 라비린토스 안정화를 위해 희생한 영웅들을 기리기 위해 '하르모니아 조약'이 체결되었습니다." },
+            { date: "2025. 02. 15", title: "이계인들의 거주지구 결정", content: "이계인들의 제안에 따라 한때 중국이었던 토지를 거주 지구로 결정하였습니다. 그들은 영향이 가장 적은 곳에 거점을 만들고 정착했습니다." },
+            { date: "2025. 02. 18", title: "학원도시 하르모니아 공사 시작", content: "제2의 라비린토스 사태를 대비하여 인류와 이계인은 공중섬 형태의 학원도시를 개발하기로 결정하고 공사를 시작했습니다." },
+            { date: "2034. 12. 24", title: "학원도시 하르모니아 개방", content: "중국 상공에 완공된 거대 학원도시가 개방되어 헌터와 이계인들이 머물며 미궁을 조사하는 거점이 되었습니다." },
+            { date: "2035. 01. 01", title: "탑승기 '아리아드네' 완성", content: "라비린토스 내부에 안전하게 진입할 수 있는 전용 탑승기 '아리아드네'를 완성하여 실전에 배치하는 데 성공했습니다." },
+            { date: "2037. 01. 05", title: "관측기 '아르고스' 완성", content: "라비린토스 안의 균열을 빠르게 포착할 수 있는 전용 관측기 '아르고스' 시스템을 구축하였습니다." },
+            { date: "2077. 07. 07", title: "하르모니아 테러 발생", content: "순수주의자 '퓨어 휴먼'과 이계인 집단 '무지'가 축제 기간에 테러를 일으켰으나 이사장에 의해 제압되었습니다." },
+            { date: "2083. 05. 04", title: "2차 테러 및 탈취 시도 방어", content: "'무지' 집단의 아르고스 탈취 시도가 있었으나 이번에도 이사장의 도움을 받아 무사히 방어에 성공했습니다." },
+            { date: "2127. 04. 01", title: "NOW : 현재", content: "하르모니아 아카데미는 여전히 인류 최전방에서 차원의 경계를 지키는 거대한 방패로 존재하고 있습니다." }
         ];
 
         const glossaryData = [
-            { term: "침식 미궁 : 라비린토스", desc: "차원이 뒤섞여 만들어진 거대 수직 미궁입니다." },
-            { term: "성좌 (Constellation)", desc: "인간에게 권능을 부여하는 전설적인 초월체들입니다." },
-            { term: "시스템 (System)", desc: "인간의 능력을 필터링하여 관리해주는 세계의 의지입니다." },
-            { term: "이계화 (異界化)", desc: "게이트 에너지가 현실을 영구적으로 변질시키는 현상입니다." },
-            { term: "침식자 (Erosive Person)", desc: "에너지 노출로 인해 신체가 변질된 지구인들입니다." }
+            { term: "침식 미궁 : 라비린토스", desc: "연속된 게이트 브레이크와 전쟁의 여파가 뒤섞여 만들어진 차원융합형 미궁입니다. 내부에는 상상할 수 없는 괴물과 이계의 자원이 공존합니다." },
+            { term: "성좌 (Constellation)", desc: "지구인에게 힘을 빌려주는 신화적 혹은 전설적인 초월적 존재들입니다. 세계의 의지 요청을 받아 특정 인간에게 권능을 부여합니다." },
+            { term: "시스템 (System)", desc: "지구인에게만 보이는 세계의 의지입니다. 성좌의 힘을 인간이 감당할 수 있도록 필터링하고 기초부터 가르치는 보조 장치 역할을 합니다." },
+            { term: "이계화 (異界化)", desc: "게이트 에너지가 현실로 유출되어 환경을 변질시키는 현상입니다. 복구가 불가능한 영구 변질이 일어나며 생태계 전체가 뒤바뀌기도 합니다." },
+            { term: "게이트 브레이크 (Gate Break)", desc: "게이트가 장기간 방치되어 과부하가 걸릴 때 발생하는 붕괴 현상입니다. 이계화와 함께 강력한 마수들이 쏟아져 나옵니다." },
+            { term: "퓨어 휴먼 (Pure Human)", desc: "순수한 지구인만이 지구의 주인이라 주장하며, 침식자와 이계인들을 차별하고 배척하는 극단적인 순혈주의 단체입니다." },
+            { term: "무지 (無知)", desc: "지식과 진리를 위해서라면 수단을 가리지 않는 위험한 범죄 집단입니다. 하르모니아 아카데미에 여러 차례 테러를 시도한 전적이 있습니다." },
+            { term: "조율협회", desc: "하르모니아 아카데미와 함께 설립된 행정 기관입니다. 헌터와 이계인의 대외 활동 및 여론 조율을 전담하며 자원 배분을 관리합니다." },
+            { term: "하르모니아 조약", desc: "인류와 이계인의 평등한 권리를 보장하기 위해 체결된 평화 조약입니다. 하지만 여전히 현실적인 차별은 실재하는 상태입니다." },
+            { term: "침식자 (Erosive Person)", desc: "라비린토스 발생 당시의 에너지 노출로 신체가 이형으로 변화한 지구인입니다. 수명이 비약적으로 늘어나지만 차별의 대상이 되곤 합니다." }
         ];
 
         const factionData = [
-            { name: "Guide Line (가이드라인)", theme: "theme-guideline", desc: "성좌와 시스템을 분석하여 최적의 전투를 교육하는 학파입니다.", depts: ["현대오컬트학과", "천문관측학과", "육체단련학과", "이능공학과", "이계정보분석학과", "이능단련학과"] },
-            { name: "Asphodel (아스포델)", theme: "theme-asphodel", desc: "삶과 죽음의 신비를 다루며 영혼을 인도하는 학파입니다.", depts: ["주술학과", "사령학과", "영매학과", "무술학과", "장례학과", "성물제작과"] },
-            { name: "Hong-Yeong (홍영)", theme: "theme-hongyeong", desc: "도술과 무공으로 수라의 힘을 다스리는 학파입니다.", depts: ["주술학과", "선술학과", "무술학과", "연단학과", "야금학과", "신비학과"] }
+            { name: "Guide Line (가이드라인)", theme: "theme-guideline", desc: "지구 시스템과 성좌의 시선 아래 놓인 헌터들이 소속된 파벌입니다. 성좌를 분석하고 효율적인 전투 능력을 발전시키기 위해 현대 공학과 신비 강의를 병행합니다.", depts: ["현대오컬트학과", "천문관측학과", "육체단련학과", "이능공학과", "이계정보분석학과", "이능단련학과"] },
+            { name: "Asphodel (아스포델)", theme: "theme-asphodel", desc: "삶과 죽음이 뒤섞인 회색 세계의 기술을 다룹니다. 제압 중심의 의학과 장례 주술이 발달했으며 타락한 혼을 정화하여 무아로 돌려보내는 장의사의 예법을 계승합니다.", depts: ["주술학과", "사령학과", "영매학과", "무술학과", "장례학과", "성물제작과"] },
+            { name: "Hong-Yeong (홍영/紅英)", theme: "theme-hongyeong", desc: "도술, 선술, 무공 등 동양적 기술을 다루는 파벌입니다. 호전적인 성향이 강하며 '배부른 맹수' 같은 나른함 속에 수라의 본능을 숨기고 선천적인 힘을 제어하는 법을 가르칩니다.", depts: ["주술학과", "선술학과", "무술학과", "연단학과", "야금학과", "신비학과"] }
         ];
 
-        const tooltipInfo = { "주술학과": "혼을 매개로 힘을 발현합니다.", "영매학과": "넋을 읽어 추적합니다.", "장례학과": "무아로 인도하는 법을 배웁니다.", "무술학과": "육체 능력을 극대화합니다.", "성물제작과": "특수 도구를 제작합니다.", "사령학과": "넋의 힘을 빌려 연구합니다.", "현대오컬트학과": "오컬트를 공학적으로 분석합니다.", "천문관측학과": "균열과 성좌를 관측합니다.", "육체단련학과": "신체 한계를 돌파합니다.", "이능공학과": "이계 에너지를 도구에 결합합니다.", "이계정보분석학과": "미궁 데이터를 해독합니다.", "이능단련학과": "고유 이능을 제어합니다.", "선술학과": "천지의 기운으로 경지를 탐구합니다.", "연단학과": "영약을 제조해 치유합니다.", "야금학과": "이계 금속으로 신물을 만듭니다.", "신비학과": "이형의 힘을 제어합니다." };
+        const tooltipInfo = { "주술학과": "주변의 혼을 매개로 신비한 힘을 발현하거나 영혼을 억제합니다.", "영매학과": "흩어진 넋을 읽어 다양한 정보를 추적하고 경험합니다.", "장례학과": "무아로 인도하는 종교적 교리와 예법을 배웁니다.", "무술학과": "육체와 혼을 일체화하여 초인적인 힘을 냅니다.", "성물제작과": "신비한 재료와 혼을 결합하여 특별한 주구를 만듭니다.", "사령학과": "넋의 힘을 빌려 도움을 구하거나 미궁 생태를 연구합니다.", "현대오컬트학과": "시스템 이후의 오컬트 현상을 공학적으로 분석합니다.", "천문관측학과": "균열과 성좌의 움직임을 별자리의 궤적으로 관측합니다.", "육체단련학과": "이능을 담아내기 위한 신체적 한계를 돌파합니다.", "이능공학과": "이계 에너지를 기계 도구에 결합하는 공학을 다룹니다.", "이계정보분석학과": "미궁 데이터를 해독하고 탐사 전략을 수립합니다.", "이능단련학과": "고유 이능의 출력을 극대화하고 정밀하게 제어합니다.", "선술학과": "천지의 기운을 다스려 도를 닦고 경지를 탐구합니다.", "연단학과": "영약을 제조하여 신체를 강화하거나 치유하는 기술입니다.", "야금학과": "영석과 이계 금속을 제련하여 신물을 제작합니다.", "신비학과": "선천적인 혈통의 힘이나 이형의 신비를 제어합니다." };
 
+        /* [LOGIC: 앱 렌더링] */
         function renderAll() {
             const realmsContent = document.getElementById('realms-content');
             realmsData.forEach(r => { realmsContent.innerHTML += `<div class="doc-folder ${r.theme}"><div class="doc-folder-header" onclick="this.parentElement.classList.toggle('active')"><span>${r.name}</span><span>▼</span></div><div class="doc-content">${r.content}</div></div>`; });
@@ -208,7 +218,7 @@
             const academyContent = document.getElementById('academy-content');
             academyData.forEach(a => { academyContent.innerHTML += `<div class="doc-folder ${a.theme || ''}"><div class="doc-folder-header" onclick="this.parentElement.classList.toggle('active')"><span>${a.name}</span><span>📂 Open</span></div><div class="doc-content">${a.content}</div></div>`; });
             const rankBody = document.getElementById('rank-body');
-            const rankData = [ { label: "S", class: "초월자", def: "자신만의 질서를 세운 자.", style: "color:#a67c00; font-weight:900;" }, { label: "A", class: "초월자의 씨앗", def: "별을 향해 손을 뻗는 자." }, { label: "B", class: "상급 초인", def: "탐사를 넘어 그 앞을 바라보는 자." }, { label: "C", class: "중급 초인", def: "탐사에 능숙해진 탐사자." }, { label: "D", class: "하급 초인", def: "탐사에 익숙해진 탐사자." }, { label: "E", class: "운동선수 수준", def: "조금 배운 탐사자." }, { label: "F", class: "일반인", def: "막 배우기 시작한 탐사자." } ];
+            const rankData = [ { label: "S", class: "초월자", def: "자신만의 별을 찾고 자신만의 질서를 세운 자.", style: "color:#a67c00; font-weight:900;" }, { label: "A", class: "초월자의 씨앗", def: "별을 향해 손을 뻗는 자." }, { label: "B", class: "상급 초인", def: "탐사를 넘어 그 앞을 바라보는 자." }, { label: "C", class: "중급 초인", def: "탐사에 능숙해진 탐사자." }, { label: "D", class: "하급 초인", def: "탐사에 익숙해진 탐사자." }, { label: "E", class: "운동선수 수준", def: "조금 배운 탐사자." }, { label: "F", class: "일반인", def: "막 배우기 시작한 탐사자." } ];
             rankData.forEach(r => { rankBody.innerHTML += `<tr><td class="rank-label" style="${r.style}">${r.label}</td><td style="font-weight:900;">${r.class}</td><td>${r.def}</td></tr>`; });
             const timeline = document.getElementById('history-timeline');
             historyData.forEach(h => { timeline.innerHTML += `<div class="event"><span class="event-date">${h.date}</span><span class="event-title">${h.title}</span><p style="color:#333; font-weight:500;">${h.content}</p></div>`; });
@@ -229,7 +239,8 @@
         });
 
         function enterAcademy() { 
-            document.getElementById('intro-overlay').classList.add('fade-out');
+            const overlay = document.getElementById('intro-overlay');
+            if(overlay) overlay.classList.add('fade-out');
             document.body.classList.add('entered'); 
             showSection('home'); 
             renderAll(); 
